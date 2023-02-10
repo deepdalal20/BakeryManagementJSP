@@ -98,6 +98,7 @@
 						{
 							String query1 = "UPDATE `tbluser` SET `password`='"+npass+"' WHERE email = '"+chemail+"'";
 							statement.executeUpdate(query1);
+							session.removeAttribute(chemail);
 							response.sendRedirect("login.jsp");
 						}
 						else
