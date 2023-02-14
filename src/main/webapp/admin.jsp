@@ -176,12 +176,7 @@
                                     <div class="col-auto flex-grow-1">
                                         <div class="fs-8"><b>Available Catrgories</b></div>
                                         <div class="fs-10 text-end fw-bold">
-                                        <?php
-                                            $query = "select * from tblcategory";
-                                            $result= mysqli_query($conn, $query);
-                                            $a =  mysqli_num_rows($result);
-                                            echo $a;
-                                        ?>
+                                        4
                                         </div>
                                     </div>
                                 </div>
@@ -198,15 +193,7 @@
                                     <div class="col-auto flex-grow-1">
                                         <div class="fs-8"><b>Number of Products Ordered</b></div>
                                         <div class="fs-10 text-end fw-bold">
-                                        <?php
-                                            $query = "select * from tblord";
-                                            $result= mysqli_query($conn, $query);
-                                            while($row = mysqli_fetch_assoc($result)):
-                                                $qty=($row['ord_qty']);
-                                                $prqty += $qty;
-                                            endwhile;
-                                            echo $prqty;  
-                                        ?>
+                                        100
                                         </div>
                                     </div>
                                 </div>
@@ -223,15 +210,7 @@
                                     <div class="col-auto flex-grow-1">
                                         <div class="fs-8"><b>Total Stocks</b></div>
                                         <div class="fs-10 text-end fw-bold">
-                                        <?php
-                                            $query = "select * from tblstock";
-                                            $result= mysqli_query($conn, $query);
-                                            while($row = mysqli_fetch_assoc($result)):
-                                                $sqty=($row['avl_stock']);
-                                                $stqty += $sqty;
-                                            endwhile;
-                                            echo $stqty;  
-                                        ?>
+                                        30
                                         </div>
                                     </div>
                                 </div>
@@ -248,15 +227,7 @@
                                     <div class="col-auto flex-grow-1">
                                         <div class="fs-8"><b>Total Sales</b></div>
                                         <div class="fs-10 text-end fw-bold">
-                                        <?php
-                                            $query = "select * from tblord";
-                                            $result= mysqli_query($conn, $query);
-                                            while($row = mysqli_fetch_assoc($result)):
-                                                $total1=($row['ord_qty']* $row['ord_price']);
-                                                $grandtotal1 += $total1;
-                                            endwhile;
-                                            echo $grandtotal1;  
-                                        ?>
+                                        15000
                                         </div>
                                     </div>
                                 </div>
@@ -289,38 +260,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php
-                                $query = "select * from tblord";
-                                $result= mysqli_query($conn, $query);
-                                $num = mysqli_num_rows($result);
-                                if($num > 0 )
-                                {
-                                while($row = mysqli_fetch_assoc($result)):
-                            ?>
                                     <tr>
-                                        <td class="td py-0 px-1"><?php echo $row['u_id'];?></td>
-                                        <td class="td py-0 px-1"><?php echo $row['ord_name'];?></td>
-                                        <td class="td py-0 px-1"><center><img src="<?php echo $row['ord_image'];?>" style="width: 200px; height: 200px;"></center></td>
-                                        <td class="td py-0 px-1"><?php echo $row['ord_price'];?></td>
-                                        <td class="td py-0 px-1"><?php echo $row['ord_qty'];?></td>
-                                        <?php
-                                            $total=($row['ord_qty']* $row['ord_price']);
-                                        ?>
-                                        <td class="td py-0 px-1 text-end"><?php echo $total;?></td>
+                                        <td class="td py-0 px-1">10</td>
+                                        <td class="td py-0 px-1">Bread</td>
+                                        <td class="td py-0 px-1"><center><img src="bakery3.jpg" style="width: 200px; height: 200px;"></center></td>
+                                        <td class="td py-0 px-1">108</td>
+                                        <td class="td py-0 px-1">3</td>
+                                        <td class="td py-0 px-1 text-end">108</td>
                                     </tr>
-                                    <?php 
-                                        endwhile;
-                                    ?>
                             </tbody>
-                            <?php
-                                }
-                                else
-                                {
-                                    ?>
-                                    <td class="py-0 px-1">No Orders Placed</td>
-                                    <?php
-                                }
-                            ?>
                         </table>
                     </div>
                 </div>

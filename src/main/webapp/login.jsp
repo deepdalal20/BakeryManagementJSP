@@ -12,7 +12,7 @@
 </head>
 <body>
     <center>
-        <a href="index.jsp"> <img class="btn"  src="Images/seewans.png" alt="" width="72" height="57"> </a>
+        <a href="index.jsp"> <img class="btn"  src="seewans.png" alt="" width="72" height="57"> </a>
         <h1 style="color: white;"> Seewans Bakery </h1>
     </center>
     <div class="container">
@@ -83,6 +83,7 @@
 			PrintWriter pw = response.getWriter();
 			String Email = request.getParameter("logemail");
 			String Password = request.getParameter("logpass");
+			String reme = request.getParameter("reme");
 			
 			try
 			{
@@ -120,6 +121,15 @@
 							session.setAttribute("csescon", cont);
 							session.setAttribute("csesuser", user);
 							response.sendRedirect("cust.jsp");
+							if(reme != null)
+							{
+								Cookie Remid = new Cookie("RemId", em);
+								Cookie Rempass = new Cookie("RemPass", ps);
+								Remid.setMaxAge(60*60*24*15);
+								Rempass.setMaxAge(60*60*24*15);
+								response.addCookie(Remid);
+								response.addCookie(Rempass);
+							}
 						}
 					}
 					else
@@ -132,8 +142,8 @@
 					pw.print("<script> alert('User not found!!'); </script>");
 				}
 			}
-			catch(Exception e){
-				System.out.print(e);
+			catch(Exception x){
+				System.out.print(x);
 			}
 		}
 	%>

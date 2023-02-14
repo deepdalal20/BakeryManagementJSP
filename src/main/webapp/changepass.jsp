@@ -29,7 +29,7 @@
                 <span class="title">Change Password</span>
                 <form action="" method="post">
                 <div class="input-field">
-                    <input type="text" placeholder="Enter your old password" name="oldpass" required>
+                    <input type="password" placeholder="Enter your old password" name="oldpass" required>
                     <i class="uil uil-lock icon"></i>
                 </div>
                 <div class="input-field">
@@ -104,6 +104,7 @@
 							{
 								String query1 = "UPDATE `tbluser` SET `password`='"+npass+"' WHERE id = '"+ses+"'";
 								statement.executeUpdate(query1);
+								out.print("<script>alert('Password updated');</script>");
 								response.sendRedirect("profile.jsp");
 							}
 							else

@@ -194,45 +194,27 @@
                 </tr>
             </thead>
             <tbody>
-            <?php 
-                $sql = "SELECT * FROM tblorderdetail";
-                $data = mysqli_query($conn, $sql);
-                $num = mysqli_num_rows($data);
-                if($num > 0)
-                {
-                while($row = mysqli_fetch_assoc($data)):
-            ?>
                 <tr>
-                    <td class="py-0 px-1"><?php echo $row['od_id']; ?></td>
-                    <td class="py-0 px-1"><?php echo $row['u_id']; ?></td>
-                    <td class="py-0 px-1"><?php echo $row['od_name']; ?></td>
-                    <td class="py-0 px-1"><?php echo $row['od_email']; ?></td>
-                    <td class="py-0 px-1"><?php echo $row['od_address']; ?></td>
-                    <td class="py-0 px-1"><?php echo $row['od_city']; ?></td>
-                    <td class="py-0 px-1"><?php echo $row['od_state']; ?></td>
-                    <td class="py-0 px-1"><?php echo $row['od_pin']; ?></td>
-                    <td class="py-0 px-1"><?php echo $row['od_total']; ?></td>
-                    <td class="py-0 px-1"><?php echo $row['od_pay']; ?></td>
-                    <td class="py-0 px-1"><?php echo $row['od_date']; ?></td>
+                    <td class="py-0 px-1">1</td>
+                    <td class="py-0 px-1">10</td>
+                    <td class="py-0 px-1">ABC</td>
+                    <td class="py-0 px-1">abc@gmail.com</td>
+                    <td class="py-0 px-1">Rander Road</td>
+                    <td class="py-0 px-1">Surat</td>
+                    <td class="py-0 px-1">Gujarat</td>
+                    <td class="py-0 px-1">395009</td>
+                    <td class="py-0 px-1">1500</td>
+                    <td class="py-0 px-1">shfiugsf7264763</td>
+                    <td class="py-0 px-1">25/02/2023</td>
                     <td class="py-0 px-1">
                     <div class="btn-group" role="group">
-                    <a href="orderby.php?id=<?php echo $row['u_id'];?>"><button  type="button" class="btn btn-primary btn-sm rounded-0 py-0">
+                    <a href="#"><button  type="button" class="btn btn-primary btn-sm rounded-0 py-0">
                             View
                             </button></a>
                     </div>
                     </td>
                 </tr>
-                <?php endwhile; ?>
             </tbody>
-            <?php
-                }
-                else
-                {
-                    ?>
-                    <td class="py-0 px-1">No Orders Placed</td>
-                    <?php
-                }
-            ?>
         </table>
     </div>
 </div>

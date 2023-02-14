@@ -73,28 +73,22 @@
                 </tr>
             </thead>
             <tbody>
-            <?php 
-              $sql = "SELECT * FROM tbluser";
-              $data = mysqli_query($conn, $sql);
-              while($row = mysqli_fetch_assoc($data)):
-            ?>
                 <tr>
-                    <td class="py-0 px-1"><?php echo $row['id']; ?></td>
-                    <td class="py-0 px-1"><?php echo $row['name']; ?></td>
-                    <td class="py-0 px-1"><?php echo $row['email']; ?></td>
-                    <td class="py-0 px-1"><?php echo $row['contact']; ?></td>
+                    <td class="py-0 px-1">10</td>
+                    <td class="py-0 px-1">Abc</td>
+                    <td class="py-0 px-1">abc@gmail.com</td>
+                    <td class="py-0 px-1">8349836486</td>
                     <th class="text-center py-0 px-1">
                         <div class="btn-group" role="group">
                             <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle btn-sm rounded-0 py-0" data-bs-toggle="dropdown" aria-expanded="false">
                             Action
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                            <li><a class="dropdown-item delete_data" href="deletecust.php?id=<?php echo $row['id'] ?>">Delete</a></li>
+                            <li><a class="dropdown-item delete_data" href="#">Inactive</a></li>
                             </ul>
                         </div>
                     </th>
                 </tr>
-                <?php endwhile; ?>
             </tbody>
         </table>
     </div>

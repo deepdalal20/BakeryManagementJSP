@@ -48,28 +48,28 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-          <a href="product1.php"><img src="bakery3.jpg" class="d-block w-100" alt="..."></a>
+          <a href="product1.jsp"><img src="bakery3.jpg" class="d-block w-100" alt="..."></a>
             <div class="carousel-caption d-none d-md-block">
               <h5>WE WELCOME YOU TO SEEWAANS BAKERS AND COOKIES</h5>
               <p>Need some butter in life.</p>
             </div>
           </div>
           <div class="carousel-item">
-          <a href="product1.php"><img src="bakery2.jpg" class="d-block w-100" alt="..."></a>
+          <a href="product1.jsp"><img src="bakery2.jpg" class="d-block w-100" alt="..."></a>
             <div class="carousel-caption d-none d-md-block">
               <h5>THE BEST YOU CAN GET</h5>
               <p>looking for some naamkeen.</p>
             </div>
           </div>
           <div class="carousel-item">
-          <a href="product1.php"><img src="bakery7.jpg" class="d-block w-100" alt="..."></a>
+          <a href="product1.jsp"><img src="bakery7.jpg" class="d-block w-100" alt="..."></a>
             <div class="carousel-caption d-none d-md-block">
               <h5>EXPERIENCE THE HEAVEN </h5>
               <p>Want some mouth watering experience.</p>
             </div>
           </div>
           <div class="carousel-item">
-          <a href="product1.php"><img src="choco.jpg" class="d-block w-100" alt="..."></a>
+          <a href="product1.jsp"><img src="choco.jpg" class="d-block w-100" alt="..."></a>
             <div class="carousel-caption d-none d-md-block">
               <h5>DIVE INTO THE WORLD OF CHOCOLATE</h5>
               <p>Melt your mouth with creamy Chocolate.</p>

@@ -190,30 +190,18 @@
                 </tr>
             </thead>
             <tbody>
-            <?php 
-                $sql = "SELECT * FROM tblproduct";
-                $data = mysqli_query($conn, $sql);
-                while($row = mysqli_fetch_assoc($data)):
-                    $id = $row['p_id'];
-            ?>
                 <tr>
-                    <td class="p-0"><?php echo $row['p_name']; ?></td>
-                    <td class="text-center py-0 px-1"><img src="<?php echo $row['p_image']; ?>"  style="width: 100px; height: 100px;"></td>
-                    <td class="py-0 px-1"><?php echo $row['category']; ?></td>
-                    <td class="py-0 px-1"><?php echo $row['p_price']; ?></td>
-                    <?php
-                        $sql1 = "SELECT * FROM tblstock where p_id='$id'";
-                        $data1 = mysqli_query($conn, $sql1);
-                        $row1 = mysqli_fetch_assoc($data1);
-                    ?>        
-                    <td class="py-0 px-1 text-end"><?php echo $row1['avl_stock']; ?></td>
+                    <td class="p-0">Bread</td>
+                    <td class="text-center py-0 px-1"><img src="bakery3.jpg"  style="width: 100px; height: 100px;"></td>
+                    <td class="py-0 px-1">Breads and Buns</td>
+                    <td class="py-0 px-1">36</td>      
+                    <td class="py-0 px-1 text-end">5</td>
                     <td class="text-center py-0 px-1">
                         <div class="btn-group" role="group">
-                            <a href="addstock.php?id=<?php echo $row['p_id'];?>"><input id="btnGroupDrop1" type="submit" value="Restock" class="btn btn-primary dropdown-toggle btn-sm rounded-0 py-0"></a>
+                            <a href="#"><input id="btnGroupDrop1" type="submit" value="Restock" class="btn btn-primary dropdown-toggle btn-sm rounded-0 py-0"></a>
                         </div>
                     </td>
                 </tr>
-                <?php endwhile; ?>
             </tbody>
         </table>
     </div>

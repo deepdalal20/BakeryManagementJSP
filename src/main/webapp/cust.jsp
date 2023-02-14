@@ -1,15 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="java.sql.*, java.io.PrintWriter" %>
 <% 
 	response.setHeader("Cache-Control","no-cache");
 	response.setHeader("Cache-Control","no-store");
 	response.setHeader("Pragma","no-cache");
 	response.setDateHeader ("Expires", 0);
-	
-	String ses = (String)session.getAttribute("csesid");
-	if(ses == null)
+	String em = (String)session.getAttribute("csesemail");
+	if(em == null)
 	{
 		response.sendRedirect("login.jsp");
+	}
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
+	Statement statement = connection.createStatement();
+	String query = "select * from tbluser where email = '"+em+"'";
+	ResultSet set = statement.executeQuery(query);
+	if(set.next())
+	{
+		String id = set.getString("id");
+		session.setAttribute("csesid", id);
 	}
 %>
 <!doctype html>
@@ -74,28 +84,28 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <a href="product.php"><img src="bakery3.jpg" class="d-block w-100" alt="..."></a>
+            <a href="product.jsp"><img src="bakery3.jpg" class="d-block w-100" alt="..."></a>
             <div class="carousel-caption d-none d-md-block">
               <h5>WE WELCOME YOU TO SEEWAANS BAKERS AND COOKIES</h5>
               <p>Need some butter in life.</p>
             </div>
           </div>
           <div class="carousel-item">
-          <a href="product.php"><img src="bakery2.jpg" class="d-block w-100" alt="..."></a>
+          <a href="product.jsp"><img src="bakery2.jpg" class="d-block w-100" alt="..."></a>
             <div class="carousel-caption d-none d-md-block">
               <h5>THE BEST YOU CAN GET</h5>
               <p>looking for some naamkeen.</p>
             </div>
           </div>
           <div class="carousel-item">
-          <a href="product.php"><img src="bakery7.jpg" class="d-block w-100" alt="..."></a>
+          <a href="productjsp"><img src="bakery7.jpg" class="d-block w-100" alt="..."></a>
             <div class="carousel-caption d-none d-md-block">
               <h5>EXPERIENCE THE HEAVEN </h5>
               <p>Want some mouth watering experience.</p>
             </div>
           </div>
           <div class="carousel-item">
-          <a href="product.php"><img src="choco.jpg" class="d-block w-100" alt="..."></a>
+          <a href="product.jsp"><img src="choco.jpg" class="d-block w-100" alt="..."></a>
             <div class="carousel-caption d-none d-md-block">
               <h5>DIVE INTO THE WORLD OF CHOCOLATE</h5>
               <p>Melt your mouth with creamy Chocolate.</p>

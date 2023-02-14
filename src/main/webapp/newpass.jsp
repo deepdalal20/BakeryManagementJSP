@@ -74,9 +74,6 @@
 		String btn = request.getParameter("fpass");
 		String npass = request.getParameter("fpass1");
 		String cpass = request.getParameter("confpass");
-		out.print(npass);
-		out.print(btn);
-		out.print(cpass);
 		if(btn != null)
 		{		
 			try
