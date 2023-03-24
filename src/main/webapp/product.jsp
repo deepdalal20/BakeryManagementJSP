@@ -10,7 +10,7 @@ String ses = (String)session.getAttribute("csesid");
 		response.sendRedirect("login.jsp");
 	}
 %>
-<%@ page import="java.sql.*, java.io.PrintWriter" %>
+<%@ page import="java.sql.*, java.io.PrintWriter, java.time.LocalDateTime, java.time.format.DateTimeFormatter" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -172,8 +172,8 @@ try
                         Qty: <input type="int" size="2" name="product_quantity" value="1">
                         <input type="hidden" name="product_id" value="<% out.print(set1.getString("p_id")); %>">
                         <input type="hidden" name="product_name" value="<%out.print(set1.getString("p_name"));%>">
-                        <input type="hidden" name="product_price" value="<% out.print(set1.getString("p_price")); %>>">
-                        <input type="hidden" name="product_image" value="<% out.print(set1.getString("p_image")); %>>">
+                        <input type="hidden" name="product_price" value="<% out.print(set1.getString("p_price")); %>">
+                        <input type="hidden" name="product_image" value="<% out.print(set1.getString("p_image")); %>">
                         <br><input type="submit" name="add_to_cart" value="Add to Cart">
                         <br><input type="submit" name="add_to_wl" value="Wishlist">
                   </form>   
@@ -205,6 +205,44 @@ finally
     {
     	System.out.print(e);
     }
+}
+
+String cart = request.getParameter("add_to_cart");
+String wl = request.getParameter("add_to_wl");
+
+String name = request.getParameter("product_name");
+String price = request.getParameter("product_price");
+String image = request.getParameter("product_image");
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+String date = LocalDateTime.now().format(formatter);
+if(cart != null)
+{
+	out.print("Cart");
+}
+
+if(wl != null)
+{
+	try
+	{
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
+		statement = connection.createStatement();
+		String q2 = "Select * from tblwishlist where wl_name = '"+name+"' and u_id = '"+ses+"'";
+		ResultSet set1 = statement.executeQuery(q2);
+		if(set1.next())
+		{
+			out.print("<script>alert('Product already in the wishlist');</script>");
+		}
+		else
+		{
+			String q1 = "INSERT INTO `tblwishlist`(`u_id`, `wl_name`, `wl_price`, `wl_image`, `date`) VALUES ('"+ses+"','"+name+"','"+price+"','"+image+"', '"+date+"')";
+			statement.executeUpdate(q1);
+		}
+	}
+	catch(Exception ex)
+	{
+		System.out.print(ex);
+	}
 }
 %>          
     <script src="https://kit.fontawesome.com/96531cd29f.js" crossorigin="anonymous"></script>

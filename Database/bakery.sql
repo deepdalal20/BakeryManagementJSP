@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 24, 2023 at 04:28 PM
+-- Generation Time: Mar 24, 2023 at 06:08 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -132,7 +132,29 @@ INSERT INTO `tbluser` (`id`, `name`, `email`, `password`, `contact`, `user`, `st
 (18, 'Jigna Solanki', 'jigna.solanki@utu.ac.in', 'kibhit@13', 9876543210, 'customer', 'inactive', '0000-00-00 00:00:00'),
 (20, 'Shivam', 'shivam@gmail.com', 'UMFV1y4B6eG9FjQROdJJWw==', 9876543210, 'customer', 'active', '2023-03-09 01:39:17'),
 (21, 'Deep', 'deepdalal20@gmail.com', '3Uk2v49MOZsr2VwHSGFytQ==', 9837465901, 'admin', 'active', '2023-03-12 01:34:19'),
-(22, 'Deep', '20bmiit106@gmail.com', '3Uk2v49MOZsr2VwHSGFytQ==', 8909879065, 'customer', 'inactive', '2023-03-22 06:07:16');
+(22, 'Deep', '20bmiit106@gmail.com', '3Uk2v49MOZsr2VwHSGFytQ==', 8909879065, 'customer', 'active', '2023-03-22 06:07:16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblwishlist`
+--
+
+CREATE TABLE `tblwishlist` (
+  `wl_id` int(11) NOT NULL,
+  `u_id` int(10) NOT NULL,
+  `wl_name` varchar(30) NOT NULL,
+  `wl_price` int(11) NOT NULL,
+  `wl_image` varchar(256) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tblwishlist`
+--
+
+INSERT INTO `tblwishlist` (`wl_id`, `u_id`, `wl_name`, `wl_price`, `wl_image`, `date`) VALUES
+(10, 22, 'Dabeli Bread', 36, 'dabeli-pav.jpg', '2023-03-24 10:37:48');
 
 --
 -- Indexes for dumped tables
@@ -165,6 +187,13 @@ ALTER TABLE `tbluser`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tblwishlist`
+--
+ALTER TABLE `tblwishlist`
+  ADD PRIMARY KEY (`wl_id`),
+  ADD KEY `user` (`u_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -193,6 +222,12 @@ ALTER TABLE `tbluser`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
+-- AUTO_INCREMENT for table `tblwishlist`
+--
+ALTER TABLE `tblwishlist`
+  MODIFY `wl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -207,6 +242,12 @@ ALTER TABLE `tblproduct`
 --
 ALTER TABLE `tblstock`
   ADD CONSTRAINT `product_id` FOREIGN KEY (`p_id`) REFERENCES `tblproduct` (`p_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `tblwishlist`
+--
+ALTER TABLE `tblwishlist`
+  ADD CONSTRAINT `user` FOREIGN KEY (`u_id`) REFERENCES `tbluser` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
