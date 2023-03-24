@@ -8,7 +8,11 @@
 <%@page import="java.util.Base64" %>
 <%@page import="java.util.*" %>
 <%
-	String chemail = request.getSession().getAttribute("chemail").toString();
+	
+response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
+response.setHeader("Pragma","no-cache");
+response.setDateHeader ("Expires", 0);
+String chemail = request.getSession().getAttribute("chemail").toString();
 	if(chemail == null)
 	{
 		response.sendRedirect("login.jsp");

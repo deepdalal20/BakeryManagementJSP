@@ -3,7 +3,6 @@
 <%@page import="java.security.*" %>
 <%@page import="java.io.*" %>
 <%@page import="java.sql.*" %>
-<%@page import="java.util.Base64" %>
 <%@page import="java.util.*" %>
     <%
     	Cookie[] c = request.getCookies();
@@ -60,30 +59,5 @@
             </div>
         </div>
     </div>
-    <script>
-        const container = document.querySelector(".container"),
-            pwShowHide = document.querySelectorAll(".showHidePw"),
-            pwFields = document.querySelectorAll(".password");
-
-        pwShowHide.forEach(eyeIcon =>{
-        eyeIcon.addEventListener("click", ()=>{
-            pwFields.forEach(pwField =>{
-                if(pwField.type ==="password"){
-                    pwField.type = "text";
-
-                    pwShowHide.forEach(icon =>{
-                        icon.classList.replace("uil-eye-slash", "uil-eye");
-                    })
-                }else{
-                    pwField.type = "password";
-
-                    pwShowHide.forEach(icon =>{
-                        icon.classList.replace("uil-eye", "uil-eye-slash");
-                    })
-                }
-            }) 
-        })
-    })
-    </script>
     </body>
 </html>

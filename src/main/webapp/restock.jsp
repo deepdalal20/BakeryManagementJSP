@@ -2,7 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*, java.io.PrintWriter, java.time.LocalDateTime, java.time.format.DateTimeFormatter" %>
 <% 
-	String ses = (String)session.getAttribute("asesid");
+response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
+response.setHeader("Pragma","no-cache");
+response.setDateHeader ("Expires", 0);
+String ses = (String)session.getAttribute("asesid");
 	String pid = request.getParameter("pid");
 	if(ses == null)
 	{
