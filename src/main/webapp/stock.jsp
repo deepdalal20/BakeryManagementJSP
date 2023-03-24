@@ -183,25 +183,78 @@
                 <tr>
                     <th class="text-center p-0">Product</th>
                     <th class="text-center p-0">Image</th>
-                    <th class="text-center p-0">Category</th>
+                    <th class="text-center p-0">Category ID</th>
                     <th class="text-center p-0">Price</th>
                     <th class="text-center p-0">Available Stock</th>
                     <th class="text-center p-0">Action</th>
                 </tr>
             </thead>
             <tbody>
+            		<%@ page import="java.sql.*, java.io.PrintWriter" %>
+					<%
+						ResultSet set = null;
+						Statement statement = null;
+						Connection connection = null;
+						try
+						{
+							Class.forName("com.mysql.cj.jdbc.Driver");
+							connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
+							statement = connection.createStatement();
+							String query = "select * from tblproduct";
+							set = statement.executeQuery(query);
+							while(set.next())
+							{
+								String pid = set.getString("p_id");
+							%>
                 <tr>
-                    <td class="p-0">Bread</td>
-                    <td class="text-center py-0 px-1"><img src="bakery3.jpg"  style="width: 100px; height: 100px;"></td>
-                    <td class="py-0 px-1">Breads and Buns</td>
-                    <td class="py-0 px-1">36</td>      
-                    <td class="py-0 px-1 text-end">5</td>
+                    <td class="p-0"><%out.print(set.getString("p_name")); %></td>
+                    <td class="text-center py-0 px-1"><img src="<%out.print(set.getString("p_image")); %>"  style="width: 100px; height: 100px;"></td>
+                    <td class="py-0 px-1"><%out.print(set.getString("category")); %></td>
+                    <td class="py-0 px-1"><%out.print(set.getString("p_price")); %></td>    
+		                    <%
+		                    	Statement statement1 = connection.createStatement();
+		                    	String query1 = "select * from tblstock where p_id = '"+pid+"'";
+								ResultSet set1 = statement1.executeQuery(query1);
+								if(set1.next())
+								{
+		                    %>  
+                    <td class="py-0 px-1 text-end"><%out.print(set1.getString(3));%></td>
+                    		<%	
+                    			} 
+								else
+								{
+									%>
+									<td class="py-0 px-1 text-end">N/A</td>
+									<%
+								}
+                    		%>
                     <td class="text-center py-0 px-1">
                         <div class="btn-group" role="group">
-                            <a href="#"><input id="btnGroupDrop1" type="submit" value="Restock" class="btn btn-primary dropdown-toggle btn-sm rounded-0 py-0"></a>
+                            <a href="restock.jsp?pid=<%out.print(pid);%>"><input id="btnGroupDrop1" type="submit" value="Restock" class="btn btn-primary dropdown-toggle btn-sm rounded-0 py-0"></a>
                         </div>
                     </td>
                 </tr>
+		                <%
+							}
+						}		
+						catch(Exception e)
+						{
+							System.out.print(e);
+						}
+						finally 
+						{
+						    try 
+						    {
+						      set.close();
+						      statement.close();
+						      connection.close();
+						    } 
+						    catch(Exception e)
+						    {
+						    	System.out.print(e);
+						    }
+						}		
+						%>
             </tbody>
         </table>
     </div>

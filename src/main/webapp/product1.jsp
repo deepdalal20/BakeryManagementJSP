@@ -90,7 +90,7 @@ body {
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a href="index.jsp"> <img class="btn"  src="Images/seewans.png" alt="" width="72" height="57"> </a>
+    <a href="index.jsp"> <img class="btn"  src="seewans.png" alt="" width="72" height="57"> </a>
     <a class="navbar-brand" href="index.php"><h2>Seewans Bakery</h2></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -127,10 +127,11 @@ try
 	set = statement.executeQuery(query);
 	while(set.next())
 	{
-		String cat = set.getString("c_name");
+		String cat = set.getString("c_id");
+		String cat1 = set.getString("c_name");
 		%>
 		<section id="section-a" class="grid">
- 		<h2> <% out.print(cat); %> </h2>
+ 		<h2> <% out.print(cat1); %> </h2>
  		  <ul>
  		<%
  		Statement statement1 = connection.createStatement();
@@ -177,7 +178,7 @@ finally
     }
 }
 %>
-        <script src="https://kit.fontawesome.com/96531cd29f.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/96531cd29f.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
 </body>

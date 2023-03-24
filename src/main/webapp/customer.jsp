@@ -60,9 +60,12 @@
     <div class="card-body">
         <table class="table table-hover table-striped table-bordered">
             <colgroup>
-                <col width="30%">
+                <col width="10%">
                 <col width="25%">
                 <col width="25%">
+                <col width="20%">
+                <col width="10%">
+                <col width="10%">
             </colgroup>
             <thead>
                 <tr>
@@ -70,26 +73,62 @@
                     <th class="text-center p-0">Name</th>
                     <th class="text-center p-0">Email</th>
                     <th class="text-center p-0">Contact</th>
+                    <th class="text-center p-0">Status</th>
                 </tr>
             </thead>
+            <%@ page import="java.sql.*, java.io.PrintWriter" %>
+					<%
+						try
+						{
+							String u = "customer";
+							Class.forName("com.mysql.cj.jdbc.Driver");
+							Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
+							Statement statement = connection.createStatement();
+							String query = "select * from tbluser where user = '"+u+"'";
+							ResultSet set = statement.executeQuery(query);
+							while(set.next())
+							{
+								String s = set.getString(7);
+							%>
             <tbody>
                 <tr>
-                    <td class="py-0 px-1">10</td>
-                    <td class="py-0 px-1">Abc</td>
-                    <td class="py-0 px-1">abc@gmail.com</td>
-                    <td class="py-0 px-1">8349836486</td>
+                    <td class="py-0 px-1"><%out.print(set.getString(1)); %></td>
+                    <td class="py-0 px-1"><%out.print(set.getString(2)); %></td>
+                    <td class="py-0 px-1"><%out.print(set.getString(3)); %></td>
+                    <td class="py-0 px-1"><%out.print(set.getString(5)); %></td>
+                    <td class="py-0 px-1"><%out.print(s); %></td>
                     <th class="text-center py-0 px-1">
                         <div class="btn-group" role="group">
-                            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle btn-sm rounded-0 py-0" data-bs-toggle="dropdown" aria-expanded="false">
-                            Action
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                            <li><a class="dropdown-item delete_data" href="#">Inactive</a></li>
-                            </ul>
+                        <%
+                        	String st = "inactive";
+                        	if (s.equals(st))
+                        	{
+                        		%>
+                            <a href = "activeuser.jsp?id=<%out.print(set.getString(1)); %>"><button type="button" class="btn btn-primary btn-sm rounded-0 py-0" aria-expanded="false">
+                            Activate
+                            </button></a>
+                            <%}
+                            else
+                            {
+                            %>
+                            	<a href = "inactiveuser.jsp?id=<%out.print(set.getString(1)); %>"><button type="button" class="btn btn-primary btn-sm rounded-0 py-0" aria-expanded="false">
+                                Inactive
+                                </button></a>
+                           <%
+                           }
+                           %>
                         </div>
                     </th>
                 </tr>
             </tbody>
+            <%
+						}
+					}
+	               	catch(Exception e)
+					{
+						System.out.print(e);
+					}
+					%>
         </table>
     </div>
 </div>

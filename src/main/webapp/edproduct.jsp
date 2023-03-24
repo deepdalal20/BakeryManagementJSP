@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
+response.setHeader("Cache-Control","no-cache");
+response.setHeader("Cache-Control","no-store");
+response.setHeader("Pragma","no-cache");
+response.setDateHeader ("Expires", 0);
 	String ses = (String)session.getAttribute("asesid");
 	if(ses == null)
 	{
@@ -170,7 +174,7 @@
     <div class="card-header d-flex justify-content-between">
         <h3 class="card-title">Product List</h3>
         <div class="card-tools align-middle">
-            <a href="newproduct.php"><button class="btn btn-dark btn-sm py-1 rounded-0" type="button" id="create_new">Add New</button></a>
+            <a href="newproduct.jsp"><button class="btn btn-dark btn-sm py-1 rounded-0" type="button" id="create_new">Add New</button></a>
         </div>
     </div>
     <div class="card-body">
@@ -178,8 +182,8 @@
             <colgroup>
                 <col width="10%">
                 <col width="15%">
-                <col width="30%">
                 <col width="10%">
+                <col width="30%">
                 <col width="15%">
             </colgroup>
             <thead>
@@ -219,8 +223,8 @@
                             Action
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                <li><a class="dropdown-item edit_data" href="updatepro.php?id=<%out.print(set.getString("p_id")); %>">Edit</a></li>
-                                <li><a class="dropdown-item delete_data" href="deletepro.php?id=<%out.print(set.getString("p_id")); %>">Delete</a></li>
+                                <li><a class="dropdown-item edit_data" href="updatepro.jsp?id=<%out.print(set.getString("p_id")); %>">Edit</a></li>
+                                <li><a class="dropdown-item delete_data" href="deletepro.jsp?id=<%out.print(set.getString("p_id")); %>">Delete</a></li>
                             </ul>
                         </div>
                     </td>

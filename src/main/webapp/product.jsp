@@ -146,10 +146,11 @@ try
 	set = statement.executeQuery(query);
 	while(set.next())
 	{
-		String cat = set.getString("c_name");
+		String cat = set.getString("c_id");
+		String cat1 = set.getString("c_name");
 		%>
 		<section id="section-a" class="grid">
- 		<h2> <% out.print(cat); %> </h2>
+ 		<h2> <% out.print(cat1); %> </h2>
  		  <ul>
  		<%
  		Statement statement1 = connection.createStatement();

@@ -10,18 +10,18 @@ if(ses == null)
 {
 	response.sendRedirect("login.jsp");
 }
-	String c_id = request.getParameter("id");
+String id = request.getParameter("id");
 %>
 <%@ page import="java.sql.*, java.io.PrintWriter" %>
 <%
-	try
+try
 	{
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
 		Statement statement = connection.createStatement();
-		String query = "DELETE FROM tblcategory WHERE c_id='"+c_id+"'";
+		String query = "DELETE FROM tblproduct WHERE p_id='"+id+"'";
 		statement.executeUpdate(query);
-		response.sendRedirect("category.jsp");
+		response.sendRedirect("edproduct.jsp");
 	}
 	catch(Exception e)
 	{
@@ -66,10 +66,10 @@ if(ses == null)
 <body>
 	
 	<div>
-        <h1>Category Cannot be deleted as any product is associated to this category</h1>
-        <h2>Would you like to delete the products too?</h2> 
+        <h1>Product still has stock remaining</h1>
+        <h2>Would you like to delete the product still?</h2> 
         <form action="" method="post"> 
-        	<input type="hidden" name="id" value="<%out.print(c_id);%>">
+        	<input type="hidden" name="id" value="<%out.print(id);%>">
         	<input type="submit" value="Yes" name="first">
         	<input type="submit" value="No" name="second">
         </form>
@@ -86,23 +86,15 @@ if(ses == null)
 	      	
 	      	if(btn1 != null)
 	      	{
-	      		String q1 = "select p_id from tblproduct where category = '"+c_id+"'";
-	      		ResultSet set = statement.executeQuery(q1);
-	      		if(set.next())
-	      		{
-	      			String pid = set.getString("p_id");
-	      			String q2 = "DELETE FROM tblstock WHERE p_id='"+pid+"'";
+	      			String q2 = "DELETE FROM tblstock WHERE p_id='"+id+"'";
 	      			statement.executeUpdate(q2);
-	      			String q3 = "DELETE FROM tblproduct WHERE p_id='"+pid+"'";
+	      			String q3 = "DELETE FROM tblproduct WHERE p_id='"+id+"'";
 	      			statement.executeUpdate(q3);
-	      			String q4 = "DELETE FROM tblcategory WHERE c_id='"+c_id+"'";
-	      			statement.executeUpdate(q4);
-	      			response.sendRedirect("category.jsp");
-	      		}
+	      			response.sendRedirect("edproduct.jsp");
 	      	}
 	      	if(btn2 != null)
 	      	{
-	      		response.sendRedirect("category.jsp");
+	      		response.sendRedirect("edproduct.jsp");
 	      	}
 	  		}
 	      catch(Exception ex)

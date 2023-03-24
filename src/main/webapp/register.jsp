@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.security.*" %>
+<%@page import="java.io.*" %>
+<%@page import="java.sql.*" %>
+<%@page import="java.util.Base64" %>
+<%@page import="java.util.*" %>
 <html>
     <head>
         <link rel="stylesheet" href="form_style.css">
@@ -31,19 +36,30 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
     <script src="https://kit.fontawesome.com/81448a00ad.js" crossorigin="anonymous"></script>
-    <%@ page import="java.sql.*, java.io.PrintWriter" %>
+    <%@ page import="java.sql.*, java.io.PrintWriter, java.time.LocalDateTime, java.time.format.DateTimeFormatter" %>
 	<%
 		PrintWriter pw = response.getWriter();
 		String btn = request.getParameter("submit");
+		
+		String Name = request.getParameter("name");
+		String Email = request.getParameter("regemail");
+		String Password = request.getParameter("regpass");
+		String Contact = request.getParameter("contact");
+		
 		if(btn != null)
 		{
+			
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(Password.getBytes());
+			byte[] digest = md.digest();
+			String hashpass = Base64.getEncoder().encodeToString(digest);
 		try
 		{
-			String Name = request.getParameter("name");
-			String Email = request.getParameter("regemail");
-			String Password = request.getParameter("regpass");
-			String Contact = request.getParameter("contact");
+			
 			String user = "customer";
+			String status = "active";
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+			String date = LocalDateTime.now().format(formatter);
 			int con = Contact.length();
 			int pas = Password.length();
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -62,7 +78,7 @@
 					if(pas >= 8)
 					{
 						
-						String query = "insert into tbluser(`name`,`email`,`password`,`contact`, `user`) values ('"+Name+"','"+Email+"','"+Password+"','"+Contact+"','"+user+"')";
+						String query = "insert into tbluser(`name`,`email`,`password`,`contact`, `user`, `status`, `date`) values ('"+Name+"','"+Email+"','"+hashpass+"','"+Contact+"','"+user+"', '"+status+"','"+date+"')";
 						statement.executeUpdate(query);
 						session.setAttribute("csesemail", Email);
 						response.sendRedirect("cust.jsp");

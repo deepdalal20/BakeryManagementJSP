@@ -1,5 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.security.*" %>
+<%@page import="java.io.*" %>
+<%@page import="java.sql.*" %>
+<%@page import="java.util.Base64" %>
+<%@page import="java.util.*" %>
+<%
+	Cookie[] cookies=request.getCookies();
+	String userName = "", password = "";
+	if (cookies != null) {
+	     for (Cookie cookie : cookies) {
+	       if(cookie.getName().equals("RemId")) {
+	         userName = cookie.getValue();
+	       }
+	       if(cookie.getName().equals("RemPass")){
+	         password = cookie.getValue();
+	       }
+	    }
+	}
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,18 +40,18 @@
                 <span class="title">Login</span>
                 <form action="" method="post">
                     <div class="input-field">
-                        <input type="email" placeholder="Enter your email" name="logemail" required>
+                        <input type="email" value="<%=userName%>" placeholder="Enter your email" name="logemail" required>
                         <i class="uil uil-envelope icon"></i>
                     </div>
                     <div class="input-field">
-                        <input type="password" class="password" placeholder="Enter your password" name="logpass" required>
+                        <input type="password" class="password" value="<%=password%>"placeholder="Enter your password" name="logpass" required>
                         <i class="uil uil-lock icon"></i>
                         <i class="uil uil-eye-slash showHidePw"></i>
                     </div>
                     <div class="checkbox-text">
                         <div class="checkbox-content">
-                            <input type="checkbox" id="logCheck">
-                            <label for="logCheck" class="text" name="reme">Remember me</label>
+                            <input type="checkbox" id="logCheck" name="reme">
+                            <label for="logCheck" class="text">Remember me</label>
                         </div>
                         <a href="forgetpass.jsp" class="text">Forgot password?</a>
                     </div>
@@ -85,6 +104,11 @@
 			String Password = request.getParameter("logpass");
 			String reme = request.getParameter("reme");
 			
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(Password.getBytes());
+			byte[] digest = md.digest();
+			String hashpass = Base64.getEncoder().encodeToString(digest);
+			
 			try
 			{
 				Class.forName("com.mysql.cj.jdbc.Driver");
@@ -96,40 +120,58 @@
 				{
 					String em = set.getString("email");
 					String ps = set.getString("password");
-					
-					if(Email.equals(em) && Password.equals(ps))
+					String status = set.getString("status");
+					String st = "active";
+					if(Email.equals(em) && hashpass.equals(ps))
 					{
-						String id = set.getString("id");
-						String name = set.getString("name");
-						String cont = set.getString("contact");
-						String user = set.getString("user");
-						
-						if(user.equals("admin"))
+						if(status.equals(st))
 						{
-							session.setAttribute("asesid", id);
-							session.setAttribute("asesname", name);
-							session.setAttribute("asesemail", em);
-							session.setAttribute("asescon", cont);
-							session.setAttribute("asesuser", user);
-							response.sendRedirect("admin.jsp");
+							String id = set.getString("id");
+							String name = set.getString("name");
+							String cont = set.getString("contact");
+							String user = set.getString("user");
+							
+							if(user.equals("admin"))
+							{
+								session.setAttribute("asesid", id);
+								session.setAttribute("asesname", name);
+								session.setAttribute("asesemail", em);
+								session.setAttribute("asescon", cont);
+								session.setAttribute("asesuser", user);
+								response.sendRedirect("admin.jsp");
+							}
+							else
+							{
+								if(reme != null)
+								{
+									session.setAttribute("csesid", id);
+									session.setAttribute("csesname", name);
+									session.setAttribute("csesemail", em);
+									session.setAttribute("csescon", cont);
+									session.setAttribute("csesuser", user);																		
+									Cookie Remid = new Cookie("RemId", Email);
+									Cookie Rempass = new Cookie("RemPass", Password);
+									Remid.setMaxAge(60*60*1);
+									Rempass.setMaxAge(60*60*1);
+									response.addCookie(Remid);
+									response.addCookie(Rempass);
+							
+									response.sendRedirect("cust.jsp");
+								}
+								else
+								{
+									session.setAttribute("csesid", id);
+									session.setAttribute("csesname", name);
+									session.setAttribute("csesemail", em);
+									session.setAttribute("csescon", cont);
+									session.setAttribute("csesuser", user);
+									response.sendRedirect("cust.jsp");
+								}
+							}
 						}
 						else
 						{
-							session.setAttribute("csesid", id);
-							session.setAttribute("csesname", name);
-							session.setAttribute("csesemail", em);
-							session.setAttribute("csescon", cont);
-							session.setAttribute("csesuser", user);
-							response.sendRedirect("cust.jsp");
-							if(reme != null)
-							{
-								Cookie Remid = new Cookie("RemId", em);
-								Cookie Rempass = new Cookie("RemPass", ps);
-								Remid.setMaxAge(60*60*24*15);
-								Rempass.setMaxAge(60*60*24*15);
-								response.addCookie(Remid);
-								response.addCookie(Rempass);
-							}
+							pw.print("<script> alert('Your account is inactive'); </script>");
 						}
 					}
 					else

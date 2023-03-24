@@ -48,7 +48,7 @@ public class SendMail {
 	
 //	public static void main(String[] agrs)
 //	{
-//		if(Sendmail("20bmiit036@gmail.com", "xya", "abc"))
+//		if(Sendmail("20bmiit106@gmail.com", "xya", "abc"))
 //		{
 //			System.out.println("Send");
 //		}

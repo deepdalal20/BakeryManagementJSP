@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*, java.io.PrintWriter" %>
 <% 
 	String ses = (String)session.getAttribute("asesid");
 	if(ses == null)
@@ -174,9 +175,28 @@
                                         <span class="fa fa-th-list fs-3 text-primary"></span>
                                     </div>
                                     <div class="col-auto flex-grow-1">
-                                        <div class="fs-8"><b>Available Catrgories</b></div>
+                                        <div class="fs-8"><b>Available Categories</b></div>
                                         <div class="fs-10 text-end fw-bold">
-                                        4
+                                        	<%
+												try
+												{
+													Class.forName("com.mysql.cj.jdbc.Driver");
+													Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
+													Statement statement = connection.createStatement();
+													String query = "select Count(*) from tblcategory";
+													ResultSet set = statement.executeQuery(query);
+													String Countrow="";
+													while(set.next())
+													{
+														Countrow = set.getString(1);
+													    out.println(Countrow);													    
+													}
+			                					}
+			                	               	catch(Exception e)
+			                					{
+			                						System.out.print(e);
+			                					}
+											%>
                                         </div>
                                     </div>
                                 </div>
