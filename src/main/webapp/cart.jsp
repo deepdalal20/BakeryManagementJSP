@@ -90,6 +90,7 @@ String ses = (String)session.getAttribute("csesid");
 			</thead>
 			<tbody>
       <%
+      int gt = 0;
         try
         {
         	Class.forName("com.mysql.cj.jdbc.Driver");
@@ -127,7 +128,6 @@ String ses = (String)session.getAttribute("csesid");
               int q1 = Integer.parseInt(qty1);
               int sum = p*q1;
               
-              int gt = 0;
               gt = gt + sum;
               System.out.print(gt);
             %>
@@ -167,7 +167,7 @@ String ses = (String)session.getAttribute("csesid");
 
 					<tbody>
 					<tr>
-					  <td class="price" data-label="Name">₹<%out.print("check"); %></td>
+					  <td class="price" data-label="Name">₹<%out.print(gt); %></td>
 					</tr>
 
 					</tbody>
