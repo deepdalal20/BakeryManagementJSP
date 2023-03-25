@@ -192,7 +192,7 @@ String ses = (String)session.getAttribute("asesid");
 													while(set.next())
 													{
 														Countrow = set.getString(1);
-													    out.println(Countrow);													    
+													    out.print(Countrow);													    
 													}
 			                					}
 			                	               	catch(Exception e)
@@ -233,7 +233,26 @@ String ses = (String)session.getAttribute("asesid");
                                     <div class="col-auto flex-grow-1">
                                         <div class="fs-8"><b>Total Stocks</b></div>
                                         <div class="fs-10 text-end fw-bold">
-                                        30
+                                        <%
+												try
+												{
+													Class.forName("com.mysql.cj.jdbc.Driver");
+													Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
+													Statement statement = connection.createStatement();
+													String query = "select sum(avl_stock) from tblstock";
+													ResultSet set1 = statement.executeQuery(query);
+													String sumst="";
+													while(set1.next())
+													{
+														sumst = set1.getString(1);
+													    out.print(sumst);													    
+													}
+			                					}
+			                	               	catch(Exception e)
+			                					{
+			                						System.out.print(e);
+			                					}
+											%>
                                         </div>
                                     </div>
                                 </div>

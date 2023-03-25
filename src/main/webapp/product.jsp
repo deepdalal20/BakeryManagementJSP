@@ -209,15 +209,66 @@ finally
 
 String cart = request.getParameter("add_to_cart");
 String wl = request.getParameter("add_to_wl");
-
+String pid = request.getParameter("product_id");
 String name = request.getParameter("product_name");
 String price = request.getParameter("product_price");
 String image = request.getParameter("product_image");
+String qty = request.getParameter("product_quantity");
+int q = Integer.parseInt(qty);
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
 String date = LocalDateTime.now().format(formatter);
 if(cart != null)
 {
-	out.print("Cart");
+	try
+	{
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
+		statement = connection.createStatement();
+		String q3 = "Select * from tblcart where crt_name = '"+name+"' and u_id = '"+ses+"'";
+		ResultSet set1 = statement.executeQuery(q3);
+		if(set1.next())
+		{
+			out.print("<script>alert('Product already in the Cart');</script>");
+		}
+		else
+		{
+			String q4 = "Select * from tblstock where p_id = '"+pid+"'";
+			Statement stt = connection.createStatement();
+			ResultSet set2 = stt.executeQuery(q4);
+			if(set2.next())
+			{
+				String st = set2.getString("avl_stock");
+				int s = Integer.parseInt(st);
+				if(q> s)
+				{
+					out.print("<script>alert('Enough stock not available');</script>");
+				}
+				else
+				{
+					System.out.print(s);
+					String q1 = "INSERT INTO `tblcart`(`u_id`, `crt_name`, `crt_price`, `crt_qty`, `crt_image`, `date`) VALUES ('"+ses+"','"+name+"','"+price+"','"+qty+"', '"+image+"', '"+date+"')";
+					statement.executeUpdate(q1);
+				}
+			}
+		}
+	}
+	catch(Exception ex)
+	{
+		System.out.print(ex);
+	}
+	finally
+	{
+		try
+		{
+			set.close();
+			statement.close();
+			connection.close();
+		}
+		catch(Exception exc)
+		{
+			System.out.print(exc);
+		}
+	}
 }
 
 if(wl != null)

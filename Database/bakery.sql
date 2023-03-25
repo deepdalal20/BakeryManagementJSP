@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 24, 2023 at 06:08 PM
+-- Generation Time: Mar 25, 2023 at 06:22 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -20,6 +20,22 @@ SET time_zone = "+00:00";
 --
 -- Database: `bakery`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblcart`
+--
+
+CREATE TABLE `tblcart` (
+  `crt_id` int(11) NOT NULL,
+  `u_id` int(11) NOT NULL,
+  `crt_name` varchar(30) NOT NULL,
+  `crt_price` int(11) NOT NULL,
+  `crt_qty` int(11) NOT NULL,
+  `crt_image` varchar(256) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -121,9 +137,9 @@ INSERT INTO `tbluser` (`id`, `name`, `email`, `password`, `contact`, `user`, `st
 (4, 'dsdv', 'sbdkjb@nd.cs', 'sdbkiapiio', 9283615670, 'customer', 'active', '0000-00-00 00:00:00'),
 (5, 'shvdjhc', 'sjdgf@dbfj.coo', 'hsvdhvjabd', 7534645267, 'customer', 'inactive', '0000-00-00 00:00:00'),
 (6, 'Preet', 'preet@ans.com', 'sdvhsvish', 8126738729, 'customer', 'active', '0000-00-00 00:00:00'),
-(7, 'deep', 'deep@gmail.com', 'deep@123', 1234567890, 'customer', 'active', '0000-00-00 00:00:00'),
-(8, 'Pratham', '20bmiit031@gmail.com', 'Pratham27', 1234567890, 'customer', 'inactive', '0000-00-00 00:00:00'),
-(9, 'Preet', 'preet@gmail.com', 'Preet@123', 1234567890, 'customer', 'inactive', '0000-00-00 00:00:00'),
+(7, 'deep', 'deep@gmail.com', 'deep@123', 1234567890, 'customer', 'inactive', '0000-00-00 00:00:00'),
+(8, 'Pratham', '20bmiit031@gmail.com', 'Pratham27', 1234567890, 'customer', 'active', '0000-00-00 00:00:00'),
+(9, 'Preet', 'preet@gmail.com', 'Preet@123', 1234567890, 'customer', 'active', '0000-00-00 00:00:00'),
 (11, 'Deep', 'deep@gmail.com', 'deep@123', 9823970927, 'customer', 'active', '0000-00-00 00:00:00'),
 (12, 'Deep', '20bmiit@gm.com', 'deep@123', 9834736747, 'customer', 'inactive', '0000-00-00 00:00:00'),
 (14, 'Noob', 'noob@abc.com', 'noob@123', 9773567890, 'customer', 'active', '0000-00-00 00:00:00'),
@@ -150,15 +166,14 @@ CREATE TABLE `tblwishlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tblwishlist`
---
-
-INSERT INTO `tblwishlist` (`wl_id`, `u_id`, `wl_name`, `wl_price`, `wl_image`, `date`) VALUES
-(10, 22, 'Dabeli Bread', 36, 'dabeli-pav.jpg', '2023-03-24 10:37:48');
-
---
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `tblcart`
+--
+ALTER TABLE `tblcart`
+  ADD PRIMARY KEY (`crt_id`);
 
 --
 -- Indexes for table `tblcategory`
@@ -198,22 +213,28 @@ ALTER TABLE `tblwishlist`
 --
 
 --
+-- AUTO_INCREMENT for table `tblcart`
+--
+ALTER TABLE `tblcart`
+  MODIFY `crt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `tblcategory`
 --
 ALTER TABLE `tblcategory`
-  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tblproduct`
 --
 ALTER TABLE `tblproduct`
-  MODIFY `p_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `p_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tblstock`
 --
 ALTER TABLE `tblstock`
-  MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tbluser`
@@ -225,7 +246,7 @@ ALTER TABLE `tbluser`
 -- AUTO_INCREMENT for table `tblwishlist`
 --
 ALTER TABLE `tblwishlist`
-  MODIFY `wl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `wl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
