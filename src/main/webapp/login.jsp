@@ -1,10 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.security.*" %>
-<%@page import="java.io.*" %>
-<%@page import="java.sql.*" %>
-<%@page import="java.util.Base64" %>
-<%@page import="java.util.*" %>
+<%@ page import="BMS.Encrypt" %>
+<%! Encrypt e = new Encrypt(); %>
 <%
 	Cookie[] cookies=request.getCookies();
 	String userName = "", password = "";
@@ -103,11 +100,7 @@
 			String Email = request.getParameter("logemail");
 			String Password = request.getParameter("logpass");
 			String reme = request.getParameter("reme");
-			
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			md.update(Password.getBytes());
-			byte[] digest = md.digest();
-			String hashpass = Base64.getEncoder().encodeToString(digest);
+			String hashpass = e.EncryptPassword(Password);
 			
 			try
 			{

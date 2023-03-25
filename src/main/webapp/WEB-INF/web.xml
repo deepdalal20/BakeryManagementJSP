@@ -7,11 +7,11 @@
   
   <!-- forgot pass -->
   <servlet>
-  	<servlet-name>Forgotpassword</servlet-name>
+  	<servlet-name>ForgotPassword</servlet-name>
   	<servlet-class>BMS.ForgotPass</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>Forgotpassword</servlet-name>
+  	<servlet-name>ForgotPassword</servlet-name>
   	<url-pattern>/ForgotPassword</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.security.*" %>
-<%@page import="javax.servlet.http.*" %>
-<%@page import="javax.servlet.*" %>
-<%@page import="java.io.*" %>
-<%@page import="java.sql.*" %>
-<%@page import="java.util.Base64" %>
-<%@page import="java.util.*" %>
+<%@ page import="BMS.Encrypt" %>
+<%! Encrypt e = new Encrypt(); %>
 <%
 	
 response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
@@ -86,11 +81,6 @@ String chemail = request.getSession().getAttribute("chemail").toString();
 		String npass = request.getParameter("fpass1");
 		String cpass = request.getParameter("confpass");
 		
-		MessageDigest md = MessageDigest.getInstance("MD5");
-		md.update(npass.getBytes());
-		byte[] digest = md.digest();
-		String hashpass = Base64.getEncoder().encodeToString(digest);
-		
 		if(btn != null)
 		{		
 			try
@@ -109,6 +99,7 @@ String chemail = request.getSession().getAttribute("chemail").toString();
 						int pas1 = cpass.length();
 						if(pas >= 8 && pas1 >= 8)
 						{
+							String hashpass = e.EncryptPassword(npass);
 							String query1 = "UPDATE `tbluser` SET `password`='"+hashpass+"' WHERE email = '"+chemail+"'";
 							statement.executeUpdate(query1);
 							session.removeAttribute(chemail);

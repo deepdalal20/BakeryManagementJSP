@@ -117,7 +117,7 @@ body {
                 <a class="nav-link active " aria-current="page" href="#">Product</a>
               </li>  
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 My Account
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -214,7 +214,7 @@ String name = request.getParameter("product_name");
 String price = request.getParameter("product_price");
 String image = request.getParameter("product_image");
 String qty = request.getParameter("product_quantity");
-int q = Integer.parseInt(qty);
+
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
 String date = LocalDateTime.now().format(formatter);
 if(cart != null)
@@ -238,6 +238,7 @@ if(cart != null)
 			if(set2.next())
 			{
 				String st = set2.getString("avl_stock");
+				int q = Integer.parseInt(qty);
 				int s = Integer.parseInt(st);
 				if(q> s)
 				{

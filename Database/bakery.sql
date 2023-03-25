@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 25, 2023 at 06:22 AM
+-- Generation Time: Mar 25, 2023 at 08:48 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -148,7 +148,7 @@ INSERT INTO `tbluser` (`id`, `name`, `email`, `password`, `contact`, `user`, `st
 (18, 'Jigna Solanki', 'jigna.solanki@utu.ac.in', 'kibhit@13', 9876543210, 'customer', 'inactive', '0000-00-00 00:00:00'),
 (20, 'Shivam', 'shivam@gmail.com', 'UMFV1y4B6eG9FjQROdJJWw==', 9876543210, 'customer', 'active', '2023-03-09 01:39:17'),
 (21, 'Deep', 'deepdalal20@gmail.com', '3Uk2v49MOZsr2VwHSGFytQ==', 9837465901, 'admin', 'active', '2023-03-12 01:34:19'),
-(22, 'Deep', '20bmiit106@gmail.com', '3Uk2v49MOZsr2VwHSGFytQ==', 8909879065, 'customer', 'active', '2023-03-22 06:07:16');
+(24, 'Deep', '20bmiit106@gmail.com', 'c63c2029bcc8d54c7d0ac08e76ab5084', 8297289180, 'customer', 'active', '2023-03-25 12:41:18');
 
 -- --------------------------------------------------------
 
@@ -240,7 +240,7 @@ ALTER TABLE `tblstock`
 -- AUTO_INCREMENT for table `tbluser`
 --
 ALTER TABLE `tbluser`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tblwishlist`

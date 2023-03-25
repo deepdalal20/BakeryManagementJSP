@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="BMS.Encrypt" %>
+<%! Encrypt e = new Encrypt(); %>
 <% 
 	
 response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
@@ -86,7 +88,7 @@ String ses = (String)session.getAttribute("csesid");
 		String cpass = request.getParameter("confpass");
 	
 		if(btn != null)
-		{		
+		{	out.println("button click");	
 			try
 			{
 				PrintWriter pw = response.getWriter();
@@ -97,16 +99,20 @@ String ses = (String)session.getAttribute("csesid");
 				ResultSet set = statement.executeQuery(query);
 				if(set.next())
 				{
+					out.println("database excecced");
 					String ps = set.getString("password");
 					if(npass.equals(cpass))
 					{
+						out.println("new password matched");
 						int pas = npass.length();
 						int pas1 = cpass.length();
 						if(pas >= 8 && pas1 >= 8)
 						{
-							if(ps.equals(opass))
+							out.println("validation done");
+							if(ps.equals(e.EncryptPassword(opass)))
 							{
-								String query1 = "UPDATE `tbluser` SET `password`='"+npass+"' WHERE id = '"+ses+"'";
+								out.println("old pass match");
+								String query1 = "UPDATE `tbluser` SET `password`='"+e.EncryptPassword(npass)+"' WHERE id = '"+ses+"'";
 								statement.executeUpdate(query1);
 								out.print("<script>alert('Password updated');</script>");
 								response.sendRedirect("profile.jsp");

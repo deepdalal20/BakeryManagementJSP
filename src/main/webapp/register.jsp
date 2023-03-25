@@ -5,6 +5,8 @@
 <%@page import="java.sql.*" %>
 <%@page import="java.util.Base64" %>
 <%@page import="java.util.*" %>
+<%@ page import="BMS.Encrypt" %>
+<%! Encrypt e = new Encrypt(); %>
 <html>
     <head>
         <link rel="stylesheet" href="form_style.css">
@@ -48,11 +50,7 @@
 		
 		if(btn != null)
 		{
-			
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			md.update(Password.getBytes());
-			byte[] digest = md.digest();
-			String hashpass = Base64.getEncoder().encodeToString(digest);
+			String hashpass = e.EncryptPassword(Password);
 		try
 		{
 			
