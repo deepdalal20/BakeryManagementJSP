@@ -1,0 +1,78 @@
+@charset "UTF-8";
+.profile{
+    margin-top: 5rem;
+    display: grid;
+    height: 30rem;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    
+}
+.right{
+    display: flex;
+    flex-direction: column;
+}
+.left{
+   margin-left: 1rem;
+}
+
+.inputleft{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.inputright{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+}
+
+
+
+.lefttop{
+    display: flex;
+    flex-direction: row;
+    height: 4rem;
+   
+}
+
+.inputleft input{
+
+    height: 2.6rem;
+  
+    border: 1px solid black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+}
+
+.inputright input{
+
+    height: 2.6rem;
+  
+    border: 1px solid black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+}
+
+.editbtn{
+    height: 2.6rem;
+    width: 10rem;
+    background-color: #ffa500;
+    color: white;
+    font-size: 14px;
+}
+
+@media screen and (max-width:768px)
+{
+    .profile{
+        grid-template-columns: 1fr;
+    }
+}

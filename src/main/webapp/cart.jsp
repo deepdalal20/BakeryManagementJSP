@@ -36,7 +36,7 @@ String ses = (String)session.getAttribute("csesid");
  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a href="cust.jsp"> <img class="btn"  src="seewans.png" alt="" width="72" height="57"> </a>
-    <a class="navbar-brand" href="cust.php"><h2>Seewans Bakery</h2></a>
+    <a class="navbar-brand" href="cust.jsp"><h2>Seewans Bakery</h2></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -118,7 +118,7 @@ String ses = (String)session.getAttribute("csesid");
 					<td id="price" data-label="Price"><%out.print(set.getString("crt_price")); %></td>
           			<td id="quntity" data-label="Quantity">
 		            <form action="updatecrt.jsp" method="post">
-		                <input type="hidden" name="product_id" value="">
+		                <input type="hidden" name="product_id" value="<%out.print(set.getString("p_id")); %>">
 		                <input type="hidden" name="cart_id" value="<%out.print(set.getString("crt_id")); %>">
 		                <input type="number" min="1" name="cart_quantity" value="<%out.print(qty1); %>">
 		                <input type="submit" name="update_cart" value="Update" class="option-btn">
@@ -127,9 +127,10 @@ String ses = (String)session.getAttribute("csesid");
               int p = Integer.parseInt(pr);
               int q1 = Integer.parseInt(qty1);
               int sum = p*q1;
-              
+              //System.out.println("gt = "+gt+" ");
               gt = gt + sum;
-              System.out.print(gt);
+              //System.out.println("sum = "+sum+" ");
+              //System.out.print("gt1 = "+gt);
             %>
 					<td id="total" data-label="Total">₹<%out.print(sum); %></td>
           <td> <form method="post" action="removecrt.jsp">
@@ -155,7 +156,7 @@ String ses = (String)session.getAttribute("csesid");
 		<div class="main-cart">
 			<div class="cart-left">
       <div>
-            <a href="product.php"> <input type="submit" value="Return to Shopping"> </a> 
+            <a href="product.jsp"> <input type="submit" value="Return to Shopping"> </a> 
             <br>
           </div>
 			</div>
@@ -168,17 +169,16 @@ String ses = (String)session.getAttribute("csesid");
 					<tbody>
 					<tr>
 					  <td class="price" data-label="Name">₹<%out.print(gt); %></td>
+					  <% session.setAttribute("gtotal", gt); %>
 					</tr>
 
 					</tbody>
 				</table>
         <br>
-            <a href="#"> <input type="submit" value="Check Out"> </a>
+            <a href="billing.jsp"> <input type="submit" value="Check Out"> </a>
             <a href="clearcrt.jsp"> <input type="submit" value="Clear Cart"> </a>
 			</div>
-      <?php
-          }
-          ?>
+      
 		</div>
 	</section>     
     <script src="https://kit.fontawesome.com/96531cd29f.js" crossorigin="anonymous"></script>

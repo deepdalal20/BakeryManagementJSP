@@ -247,8 +247,9 @@ if(cart != null)
 				else
 				{
 					System.out.print(s);
-					String q1 = "INSERT INTO `tblcart`(`u_id`, `crt_name`, `crt_price`, `crt_qty`, `crt_image`, `date`) VALUES ('"+ses+"','"+name+"','"+price+"','"+qty+"', '"+image+"', '"+date+"')";
+					String q1 = "INSERT INTO `tblcart`(`p_id`, `u_id`, `crt_name`, `crt_price`, `crt_qty`, `crt_image`) VALUES ('"+pid+"', '"+ses+"','"+name+"','"+price+"','"+qty+"', '"+image+"')";
 					statement.executeUpdate(q1);
+					response.sendRedirect("cart.jsp");
 				}
 			}
 		}
@@ -289,6 +290,7 @@ if(wl != null)
 		{
 			String q1 = "INSERT INTO `tblwishlist`(`u_id`, `wl_name`, `wl_price`, `wl_image`, `date`) VALUES ('"+ses+"','"+name+"','"+price+"','"+image+"', '"+date+"')";
 			statement.executeUpdate(q1);
+			response.sendRedirect("wishlist.jsp");
 		}
 	}
 	catch(Exception ex)

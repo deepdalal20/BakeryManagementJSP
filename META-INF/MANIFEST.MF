@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BakeryManagement
+Bundle-SymbolicName: BakeryManagement
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: BakeryManagement.jar,
+ deepdalal/eclipse/mysql-connector-j-8.0.32/mysql-connector-j-8.0.32.jar,
+ deepdalal/eclipse/angus-activation-2.0.0.jar,
+ deepdalal/eclipse/jakarta.mail-2.0.1.jar,
+ deepdalal/eclipse/jakarta.activation-api-2.1.1.jar,
+ deepdalal/Downloads/javax.servlet.jar
+Automatic-Module-Name: BakeryManagement
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Export-Package: BMS

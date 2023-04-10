@@ -14,14 +14,33 @@ String ses = (String)session.getAttribute("csesid");
 <%
 	String crid = request.getParameter("cart_id");
 	String qty = request.getParameter("cart_quantity");
+	String pid = request.getParameter("product_id");
+	System.out.print(pid);
 	try
 	{
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
 		Statement statement = connection.createStatement();
-		String query = "update tblcart set crt_qty = '"+qty+"' where crt_id = '"+crid+"'";
-		statement.executeUpdate(query);
-		response.sendRedirect("cart.jsp");
+		
+		String q4 = "Select * from tblstock where p_id = '"+pid+"'";
+		ResultSet set2 = statement.executeQuery(q4);
+		if(set2.next())
+		{
+			String st = set2.getString("avl_stock");
+			int q = Integer.parseInt(qty);
+			int s = Integer.parseInt(st);
+			if(q > s)
+			{
+				out.print("<script>alert('Enough stock not available');</script>");
+				response.sendRedirect("cart.jsp");
+			}
+			else
+			{
+				String query = "update tblcart set crt_qty = '"+qty+"' where crt_id = '"+crid+"'";
+				statement.executeUpdate(query);
+				response.sendRedirect("cart.jsp");
+			}
+		}
 	}
 	catch(Exception e)
 	{

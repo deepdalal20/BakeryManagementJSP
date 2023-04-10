@@ -19,12 +19,24 @@ String ses = (String)session.getAttribute("csesid");
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <title>Order History</title>
 <title>Insert title here</title>
+<style>
+      input[type=submit] {
+  background-color: #fa9200;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 25px;
+}
+</style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
         <a href="cust.jsp"> <img class="btn"  src="seewans.png" alt="" width="72" height="57"> </a>
-          <a class="navbar-brand" href="cust.php"><h2>Seewans Bakery</h2></a>
+          <a class="navbar-brand" href="cust.jsp"><h2>Seewans Bakery</h2></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -58,6 +70,90 @@ String ses = (String)session.getAttribute("csesid");
           </div>
         </div>
       </nav>
-      <h1> Page under Construction </h1>
+      <section class="uts">
+        <div>
+             <h1 class="primary-head">Order History</h1>
+        </div>
+    </section>
+	<section class="m-b-remove">
+	<div class="container2">
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+          			<th>Image</th>
+					<th>Price</th>
+					<th>Quantity</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+	<%@ page import="java.sql.*" %>
+      <%
+      int gt=0;
+      try
+      {
+      	Class.forName("com.mysql.cj.jdbc.Driver");
+      	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
+      	Statement statement = connection.createStatement();
+      	String query = "select * from tblord where u_id = '"+ses+"'";
+      	ResultSet set = statement.executeQuery(query);
+      	if (!set.isBeforeFirst()) {
+      		%>
+	        		<tr>
+		                <td>No orders placed</td>
+		            </tr>
+      		<%
+           } 
+      	else 
+      	{
+	        	while(set.next())
+	        	{
+	        		String qty1 = set.getString("ord_qty");
+	            	String pr = set.getString("ord_price");
+      %>
+				<tr>
+					<td id="name" data-label="Name"><%out.print(set.getString("ord_name")); %></td>
+          			<td id="image" data-label="image"><img src="<%out.print(set.getString("ord_image")); %>" style="width: 100px; height: 100px;"></td>
+					<td id="price" data-label="Price"><%out.print(set.getString("ord_price")); %></td>
+          			<td id="quntity" data-label="Quantity"><%out.print(qty1); %></td>
+					<%
+		              int p = Integer.parseInt(pr);
+		              int q1 = Integer.parseInt(qty1);
+		              int sum = p*q1;
+		              //System.out.println("gt = "+gt+" ");
+		              gt = gt + sum;
+		              //System.out.println("sum = "+sum+" ");
+		              //System.out.print("gt1 = "+gt);
+		            %>
+					<td id="total" data-label="Total">₹<%=gt%></td>
+				</tr>
+      <%
+	        	}
+        	}
+        }
+        catch(Exception e)
+        {
+        	System.out.print(e);
+        }
+		%>
+			</tbody>
+		</table>
+	</div>
+</section>
+	<section class="m-remove">
+		<div class="main-cart">
+			<div class="cart-left">
+      <div>
+            <a href="product.jsp"> <input type="submit" value="Return to Shopping"> </a> 
+            <br>
+          </div>
+			</div>
+		</div>
+	</section>     
+    <script src="https://kit.fontawesome.com/96531cd29f.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
 </body>
 </html>

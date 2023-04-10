@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 25, 2023 at 09:02 AM
+-- Generation Time: Apr 10, 2023 at 07:16 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -29,22 +29,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tblcart` (
   `crt_id` int(11) NOT NULL,
+  `p_id` int(11) NOT NULL,
   `u_id` int(11) NOT NULL,
   `crt_name` varchar(30) NOT NULL,
   `crt_price` int(11) NOT NULL,
   `crt_qty` int(11) NOT NULL,
-  `crt_image` varchar(256) NOT NULL,
-  `date` datetime NOT NULL
+  `crt_image` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tblcart`
---
-
-INSERT INTO `tblcart` (`crt_id`, `u_id`, `crt_name`, `crt_price`, `crt_qty`, `crt_image`, `date`) VALUES
-(9, 26, 'Pav Bhaji Bread', 34, 5, 'pavbhajibread.jpeg', '2023-03-25 01:27:49'),
-(10, 26, 'Burger Buns', 40, 4, 'burgerbun.jpg', '2023-03-25 01:28:24'),
-(11, 26, 'MrBeastBar', 100, 1, 'mrbeast.jpeg', '2023-03-25 01:31:31');
 
 -- --------------------------------------------------------
 
@@ -64,7 +55,69 @@ CREATE TABLE `tblcategory` (
 INSERT INTO `tblcategory` (`c_id`, `c_name`) VALUES
 (1, 'Breads and Buns'),
 (2, 'Cakes'),
-(3, 'Chocolates');
+(3, 'Chocolates'),
+(20, 'Biscuits');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblord`
+--
+
+CREATE TABLE `tblord` (
+  `ord_id` int(11) NOT NULL,
+  `p_id` int(11) NOT NULL,
+  `u_id` int(11) NOT NULL,
+  `ord_name` varchar(30) NOT NULL,
+  `ord_price` int(11) NOT NULL,
+  `ord_qty` int(11) NOT NULL,
+  `ord_image` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tblord`
+--
+
+INSERT INTO `tblord` (`ord_id`, `p_id`, `u_id`, `ord_name`, `ord_price`, `ord_qty`, `ord_image`) VALUES
+(17, 0, 25, 'Pav Bhaji Bread', 50, 2, 'bakery7.jpg'),
+(20, 1, 25, 'Pav Bhaji Bread', 50, 2, 'bakery7.jpg'),
+(22, 1, 25, 'Pav Bhaji Bread', 50, 8, 'bakery7.jpg'),
+(23, 1, 25, 'Pav Bhaji Bread', 50, 3, 'bakery7.jpg'),
+(24, 1, 25, 'Pav Bhaji Bread', 50, 3, 'bakery7.jpg'),
+(25, 1, 25, 'Pav Bhaji Bread', 50, 1, 'bakery7.jpg'),
+(26, 1, 25, 'Pav Bhaji Bread', 50, 2, 'bakery7.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblorderdetail`
+--
+
+CREATE TABLE `tblorderdetail` (
+  `od_id` int(11) NOT NULL,
+  `u_id` int(11) NOT NULL,
+  `od_name` varchar(40) NOT NULL,
+  `od_email` varchar(256) NOT NULL,
+  `od_address` varchar(100) NOT NULL,
+  `od_city` varchar(30) NOT NULL,
+  `od_state` varchar(30) NOT NULL,
+  `od_pin` varchar(10) NOT NULL,
+  `od_total` int(11) NOT NULL,
+  `od_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tblorderdetail`
+--
+
+INSERT INTO `tblorderdetail` (`od_id`, `u_id`, `od_name`, `od_email`, `od_address`, `od_city`, `od_state`, `od_pin`, `od_total`, `od_date`) VALUES
+(1, 25, 'null', 'null', 'null', 'null', 'null', 'null', 100, '2023-04-10 09:53:09'),
+(2, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '386247', 100, '2023-04-10 10:05:26'),
+(3, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '374889', 400, '2023-04-10 10:26:42'),
+(4, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '836482', 150, '2023-04-10 10:28:08'),
+(5, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '297492', 150, '2023-04-10 10:30:44'),
+(6, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '283782', 50, '2023-04-10 10:32:54'),
+(7, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '937432', 100, '2023-04-10 10:34:03');
 
 -- --------------------------------------------------------
 
@@ -87,7 +140,7 @@ CREATE TABLE `tblproduct` (
 --
 
 INSERT INTO `tblproduct` (`p_id`, `p_name`, `category`, `p_image`, `p_price`, `p_status`, `date`) VALUES
-(1, 'Pav Bhaji Bread', 1, 'pavbhajibread.jpeg', 34, 'instock', '2022-12-03 16:21:05'),
+(1, 'Pav Bhaji Bread', 1, 'bakery7.jpg', 50, 'instock', '2023-03-25 02:06:46'),
 (2, 'Dabeli Bread', 1, 'dabeli-pav.jpg', 36, 'instock', '2022-09-16 00:00:00'),
 (3, 'Burger Buns', 1, 'burgerbun.jpg', 40, 'instock', '2022-09-16 00:00:00'),
 (4, 'Cadbury Silk', 3, 'dmsilk.jpeg', 80, 'instock', '2022-10-15 14:27:44'),
@@ -113,10 +166,11 @@ CREATE TABLE `tblstock` (
 --
 
 INSERT INTO `tblstock` (`st_id`, `p_id`, `avl_stock`, `date`) VALUES
-(1, 1, 40, '2023-03-20 09:54:55'),
+(1, 1, 38, '2023-03-20 09:54:55'),
 (11, 2, 5, '2023-03-25 01:26:41'),
 (12, 6, 100, '2023-03-20 09:55:35'),
-(13, 3, 6, '2023-03-21 11:34:58');
+(13, 3, 6, '2023-03-21 11:34:58'),
+(24, 4, 100, '2023-03-25 02:03:09');
 
 -- --------------------------------------------------------
 
@@ -155,8 +209,9 @@ INSERT INTO `tbluser` (`id`, `name`, `email`, `password`, `contact`, `user`, `st
 (15, 'noob', 'noob1@gmail.com', 'confirmke', 8736659808, 'customer', 'inactive', '0000-00-00 00:00:00'),
 (16, 'Preet', 'Preet@gm.co', 'Preet@008', 9624430118, 'customer', 'active', '0000-00-00 00:00:00'),
 (18, 'Jigna Solanki', 'jigna.solanki@utu.ac.in', 'kibhit@13', 9876543210, 'customer', 'inactive', '0000-00-00 00:00:00'),
-(25, 'Deep', '20bmiit106@gmail.com', 'dd4936bf8f4c399b2bd95c07486172b5', 9823782987, 'admin', 'active', '2023-03-25 01:21:15'),
-(26, 'Preet', '20bmiit036@gmail.com', '995e133d444590be582547c16a10174c', 9624430118, 'customer', 'active', '2023-03-25 01:27:33');
+(25, 'Deep', '20bmiit106@gmail.com', 'dd4936bf8f4c399b2bd95c07486172b5', 9823782987, 'customer', 'active', '2023-03-25 01:21:15'),
+(26, 'Preet', '20bmiit036@gmail.com', '995e133d444590be582547c16a10174c', 9624430118, 'customer', 'active', '2023-03-25 01:27:33'),
+(27, 'Deep', 'deepdalal20@gmail.com', 'dd4936bf8f4c399b2bd95c07486172b5', 8475674890, 'admin', 'active', '2023-03-25 01:34:10');
 
 -- --------------------------------------------------------
 
@@ -174,6 +229,14 @@ CREATE TABLE `tblwishlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `tblwishlist`
+--
+
+INSERT INTO `tblwishlist` (`wl_id`, `u_id`, `wl_name`, `wl_price`, `wl_image`, `date`) VALUES
+(16, 26, 'Burger Buns', 40, 'burgerbun.jpg', '2023-03-25 02:10:55'),
+(17, 25, 'Pav Bhaji Bread', 50, 'bakery7.jpg', '2023-04-10 08:35:03');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -188,6 +251,18 @@ ALTER TABLE `tblcart`
 --
 ALTER TABLE `tblcategory`
   ADD PRIMARY KEY (`c_id`);
+
+--
+-- Indexes for table `tblord`
+--
+ALTER TABLE `tblord`
+  ADD PRIMARY KEY (`ord_id`);
+
+--
+-- Indexes for table `tblorderdetail`
+--
+ALTER TABLE `tblorderdetail`
+  ADD PRIMARY KEY (`od_id`);
 
 --
 -- Indexes for table `tblproduct`
@@ -224,13 +299,25 @@ ALTER TABLE `tblwishlist`
 -- AUTO_INCREMENT for table `tblcart`
 --
 ALTER TABLE `tblcart`
-  MODIFY `crt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `crt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tblcategory`
 --
 ALTER TABLE `tblcategory`
-  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `tblord`
+--
+ALTER TABLE `tblord`
+  MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `tblorderdetail`
+--
+ALTER TABLE `tblorderdetail`
+  MODIFY `od_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tblproduct`
@@ -242,19 +329,19 @@ ALTER TABLE `tblproduct`
 -- AUTO_INCREMENT for table `tblstock`
 --
 ALTER TABLE `tblstock`
-  MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tbluser`
 --
 ALTER TABLE `tbluser`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `tblwishlist`
 --
 ALTER TABLE `tblwishlist`
-  MODIFY `wl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `wl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
