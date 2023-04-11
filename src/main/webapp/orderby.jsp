@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
-	
 response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
 response.setHeader("Pragma","no-cache");
 response.setDateHeader ("Expires", 0);
@@ -10,6 +9,7 @@ String ses = (String)session.getAttribute("asesid");
 	{
 		response.sendRedirect("login.jsp");
 	}
+	String i = request.getParameter("id");
 %>
 <!doctype html>
 <html lang="en">
@@ -144,7 +144,7 @@ String ses = (String)session.getAttribute("asesid");
                 <a class="nav-link" href="admin.jsp">Admin Dashboard</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Orders Details</a>
+                <a class="nav-link" href="orders.jsp">Orders Details</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="category.jsp"> Category</a>
@@ -165,78 +165,64 @@ String ses = (String)session.getAttribute("asesid");
 </nav>
 <div class="card rounded-0 shadow">
     <div class="card-header d-flex justify-content-between">
-        <h3 class="card-title">Placed Orders</h3>
+        <h3 class="card-title">Placed Orders by user <%=i%></h3>
+        <div class="card-tools align-middle">
+            <a href="orders.jsp"><button class="btn btn-dark btn-sm py-1 rounded-0" type="button" id="create_new">Back to Dashboard</button></a>
+        </div>
     </div>
     <div class="card-body">
-        <table class="table table-hover table-striped table-bordered">
-            <colgroup>
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-            </colgroup>
-            <thead>
-                <tr>
-                    <th class="text-center p-0">Order ID</th>
-                    <th class="text-center p-0">User ID</th>
-                    <th class="text-center p-0">Name</th>
-                    <th class="text-center p-0">Email</th>
-                    <th class="text-center p-0">Address</th>
-                    <th class="text-center p-0">City</th>
-                    <th class="text-center p-0">State</th>
-                    <th class="text-center p-0">Pin</th>
-                    <th class="text-center p-0">Total Amount</th>
-                    <th class="text-center p-0">Payment ID</th>
-                    <th class="text-center p-0">Order Date</th>
-                </tr>
-            </thead>
-            <tbody>
-            <%@page import="java.sql.*, java.io.*" %>
-            <%
-				try
-				{
-					Class.forName("com.mysql.cj.jdbc.Driver");
-					Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
-					Statement statement = connection.createStatement();
-					String query = "select * from tblorderdetail";
-					ResultSet set = statement.executeQuery(query);
-					while(set.next())
-					{%>	
-						<tr>
-		                    <td class="py-0 px-1"><%out.print(set.getString(1));%></td>
-		                    <td class="py-0 px-1"><%out.print(set.getString(2));%></td>
-		                    <td class="py-0 px-1"><%out.print(set.getString(3));%></td>
-		                    <td class="py-0 px-1"><%out.print(set.getString(4));%></td>
-		                    <td class="py-0 px-1"><%out.print(set.getString(5));%></td>
-		                    <td class="py-0 px-1"><%out.print(set.getString(6));%></td>
-		                    <td class="py-0 px-1"><%out.print(set.getString(7));%></td>
-		                    <td class="py-0 px-1"><%out.print(set.getString(8));%></td>
-		                    <td class="py-0 px-1"><%out.print(set.getString(9));%></td>
-		                    <td class="py-0 px-1"><%out.print(set.getString(10));%></td>
-		                    <td class="py-0 px-1"><%out.print(set.getString(11));%></td>
-		                    <td class="py-0 px-1">
-		                    <div class="btn-group" role="group">
-		                    <a href="orderby.jsp?id=<%out.print(set.getString(2));%>"><button  type="button" class="btn btn-primary btn-sm rounded-0 py-0">
-		                            View
-		                            </button></a>
-		                    </div>
-	                    </td>
-	                </tr>																			    
-					<%}
-			     }
-			     catch(Exception e)
-			     {
-			        System.out.print(e);
-			     }
-			%>
-                </tbody>
+        <table class="table table-striped table-hover table-bordered" id="inventory">
+                            <colgroup>
+                                <col width="10%">
+                                <col width="20%">
+                                <col width="20%">
+                                <col width="20%">
+                                <col width="20%">
+                                <col width="10%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th class="py-0 px-1">User ID</th>
+                                    <th class="py-0 px-1">Product Name</th>
+                                    <th class="py-0 px-1">Product Image</th>
+                                    <th class="py-0 px-1">Product Price</th>
+                                    <th class="py-0 px-1">Product Quantity</th>
+                                    <th class="py-0 px-1">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <%@page import="java.sql.*, java.io.*" %>
+                            <%
+							try
+							{
+								Class.forName("com.mysql.cj.jdbc.Driver");
+								Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
+								Statement statement = connection.createStatement();
+								String query = "select * from tblord where u_id = '"+i+"'";
+								ResultSet set = statement.executeQuery(query);
+								while(set.next())
+								{%>
+		                            <tr>
+                                        <td class="td py-0 px-1"><%out.print(set.getString("u_id"));%></td>
+                                        <td class="td py-0 px-1"><%out.print(set.getString("ord_name"));%></td>
+                                        <td class="td py-0 px-1"><center><img src="<%out.print(set.getString("ord_image"));%>" style="width: 200px; height: 200px;"></center></td>
+                                        <td class="td py-0 px-1"><%out.print(set.getString("ord_price"));%></td>
+                                        <td class="td py-0 px-1"><%out.print(set.getString("ord_qty"));%></td>
+                                        <%
+                                        	int q = set.getInt("ord_qty");
+                                        	int p = set.getInt("ord_price");
+                                        	int t = q*p;
+                                        %>
+                                        <td class="td py-0 px-1 text-end"><%=t%></td>
+                                    </tr>
+                                    <%}
+							     }
+							     catch(Exception e)
+							     {
+							        System.out.print(e);
+							     }
+							%>
+                            </tbody>
         </table>
     </div>
 </div>

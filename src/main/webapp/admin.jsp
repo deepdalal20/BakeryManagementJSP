@@ -216,7 +216,26 @@ String ses = (String)session.getAttribute("asesid");
                                     <div class="col-auto flex-grow-1">
                                         <div class="fs-8"><b>Number of Products Ordered</b></div>
                                         <div class="fs-10 text-end fw-bold">
-                                        100
+                                        <%
+												try
+												{
+													Class.forName("com.mysql.cj.jdbc.Driver");
+													Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
+													Statement statement = connection.createStatement();
+													String query = "select sum(ord_qty) from tblord";
+													ResultSet set1 = statement.executeQuery(query);
+													String sumst="";
+													while(set1.next())
+													{
+														sumst = set1.getString(1);
+													    out.print(sumst);													    
+													}
+			                					}
+			                	               	catch(Exception e)
+			                					{
+			                						System.out.print(e);
+			                					}
+											%>
                                         </div>
                                     </div>
                                 </div>
@@ -269,7 +288,26 @@ String ses = (String)session.getAttribute("asesid");
                                     <div class="col-auto flex-grow-1">
                                         <div class="fs-8"><b>Total Sales</b></div>
                                         <div class="fs-10 text-end fw-bold">
-                                        15000
+                                        <%
+												try
+												{
+													Class.forName("com.mysql.cj.jdbc.Driver");
+													Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
+													Statement statement = connection.createStatement();
+													String query = "select sum(od_total) from tblorderdetail";
+													ResultSet set1 = statement.executeQuery(query);
+													String sumst="";
+													while(set1.next())
+													{
+														sumst = set1.getString(1);
+													    out.print(sumst);													    
+													}
+			                					}
+			                	               	catch(Exception e)
+			                					{
+			                						System.out.print(e);
+			                					}
+											%>
                                         </div>
                                     </div>
                                 </div>
@@ -280,7 +318,7 @@ String ses = (String)session.getAttribute("asesid");
                 <hr>
                 <div class="row">
                     <div class="col-12">
-                        <h3>Ordered Product Details</h3>
+                        <h3>Top 7 Orders Detail</h3>
                         <hr>
                         <table class="table table-striped table-hover table-bordered" id="inventory">
                             <colgroup>
@@ -302,14 +340,40 @@ String ses = (String)session.getAttribute("asesid");
                                 </tr>
                             </thead>
                             <tbody>
-                                    <tr>
-                                        <td class="td py-0 px-1">10</td>
-                                        <td class="td py-0 px-1">Bread</td>
-                                        <td class="td py-0 px-1"><center><img src="bakery3.jpg" style="width: 200px; height: 200px;"></center></td>
-                                        <td class="td py-0 px-1">108</td>
-                                        <td class="td py-0 px-1">3</td>
-                                        <td class="td py-0 px-1 text-end">108</td>
-                                    </tr>
+                            <%
+												try
+												{
+													Class.forName("com.mysql.cj.jdbc.Driver");
+													Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
+													Statement statement = connection.createStatement();
+													String query = "SELECT * FROM tblord ORDER BY ord_qty desc LIMIT 7";
+													ResultSet set1 = statement.executeQuery(query);
+													
+													while(set1.next())
+													{%>
+														<tr>
+				                                        <td class="td py-0 px-1"><%out.print(set1.getString("u_id")); %></td>
+				                                        <td class="td py-0 px-1"><%out.print(set1.getString("ord_name")); %></td>
+				                                        <td class="td py-0 px-1"><center><img src="<%out.print(set1.getString("ord_image")); %>" style="width: 200px; height: 200px;"></center></td>
+				                                        <td class="td py-0 px-1"><%out.print(set1.getString("ord_price")); %></td>
+				                                        <td class="td py-0 px-1"><%out.print(set1.getString("ord_qty")); %></td>
+				                                        
+				                                        <%
+				                                        	int q = set1.getInt("ord_qty");
+				                                        	int p = set1.getInt("ord_price");
+				                                        	int t = q *p;
+				                                        %>
+				                                        
+				                                        <td class="td py-0 px-1 text-end"><%=t%></td>
+				                                    	</tr>										    
+													<%}
+			                					}
+			                	               	catch(Exception e)
+			                					{
+			                						System.out.print(e);
+			                					}
+											%>
+                                    
                             </tbody>
                         </table>
                     </div>

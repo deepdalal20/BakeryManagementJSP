@@ -57,8 +57,8 @@ String ses = (String)session.getAttribute("csesid");
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="profile.jsp">Profile</a></li>
-                  <li><a class="dropdown-item active " aria-current="page" href="#">Wishlist</a></li>
-                  <li><a class="dropdown-item" href="orderhistory.jsp">Order History</a></li>
+                  <li><a class="dropdown-item"  href="wishlist.jsp">Wishlist</a></li>
+                  <li><a class="dropdown-item active " aria-current="page" href="#">Order History</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="logout.jsp">Logout</a></li>
                 </ul>

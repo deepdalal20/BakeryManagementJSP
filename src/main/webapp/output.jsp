@@ -87,9 +87,10 @@ if(ses == null)
 </nav>
       <div>
         <h1>Thank you for Shopping with us.</h1>
-        <h2>You have succesfully placed your order.</h2> 
-        <p>We received your order<br/> You'll receive your order very soon!</p>
-        <!-- <p> Your Payment id is: <?php echo $payment; unset($_SESSION['razorpay_payment_id']); ?></p>-->
+        <h2>You have successfully placed your order.</h2> 
+        <p>We received your order<br/> You'll receive your order in next 40 minutes!</p>
+       	<p> Your Payment id is: <%out.print(session.getAttribute("payment")); %></p>
+       	<% session.removeAttribute("payment"); %>
       </div>
       <a href="product.jsp"><input type="submit" value="Return to shop"></a>
       <script src="https://kit.fontawesome.com/96531cd29f.js" crossorigin="anonymous"></script>

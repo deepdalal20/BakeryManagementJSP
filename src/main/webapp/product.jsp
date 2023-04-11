@@ -240,7 +240,7 @@ if(cart != null)
 				String st = set2.getString("avl_stock");
 				int q = Integer.parseInt(qty);
 				int s = Integer.parseInt(st);
-				if(q> s)
+				if(q > s)
 				{
 					out.print("<script>alert('Enough stock not available');</script>");
 				}
@@ -251,6 +251,10 @@ if(cart != null)
 					statement.executeUpdate(q1);
 					response.sendRedirect("cart.jsp");
 				}
+			}
+			else
+			{
+				out.print("<script>alert('Enough stock not available');</script>");
 			}
 		}
 	}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 10, 2023 at 07:16 PM
+-- Generation Time: Apr 11, 2023 at 06:13 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -55,8 +55,7 @@ CREATE TABLE `tblcategory` (
 INSERT INTO `tblcategory` (`c_id`, `c_name`) VALUES
 (1, 'Breads and Buns'),
 (2, 'Cakes'),
-(3, 'Chocolates'),
-(20, 'Biscuits');
+(3, 'Chocolates');
 
 -- --------------------------------------------------------
 
@@ -85,7 +84,9 @@ INSERT INTO `tblord` (`ord_id`, `p_id`, `u_id`, `ord_name`, `ord_price`, `ord_qt
 (23, 1, 25, 'Pav Bhaji Bread', 50, 3, 'bakery7.jpg'),
 (24, 1, 25, 'Pav Bhaji Bread', 50, 3, 'bakery7.jpg'),
 (25, 1, 25, 'Pav Bhaji Bread', 50, 1, 'bakery7.jpg'),
-(26, 1, 25, 'Pav Bhaji Bread', 50, 2, 'bakery7.jpg');
+(26, 1, 25, 'Pav Bhaji Bread', 50, 2, 'bakery7.jpg'),
+(27, 2, 25, 'Dabeli Bread', 36, 2, 'dabeli-pav.jpg'),
+(28, 6, 25, 'MrBeastBar', 100, 10, 'mrbeast.jpeg');
 
 -- --------------------------------------------------------
 
@@ -103,6 +104,7 @@ CREATE TABLE `tblorderdetail` (
   `od_state` varchar(30) NOT NULL,
   `od_pin` varchar(10) NOT NULL,
   `od_total` int(11) NOT NULL,
+  `od_pay` varchar(256) NOT NULL,
   `od_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -110,14 +112,16 @@ CREATE TABLE `tblorderdetail` (
 -- Dumping data for table `tblorderdetail`
 --
 
-INSERT INTO `tblorderdetail` (`od_id`, `u_id`, `od_name`, `od_email`, `od_address`, `od_city`, `od_state`, `od_pin`, `od_total`, `od_date`) VALUES
-(1, 25, 'null', 'null', 'null', 'null', 'null', 'null', 100, '2023-04-10 09:53:09'),
-(2, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '386247', 100, '2023-04-10 10:05:26'),
-(3, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '374889', 400, '2023-04-10 10:26:42'),
-(4, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '836482', 150, '2023-04-10 10:28:08'),
-(5, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '297492', 150, '2023-04-10 10:30:44'),
-(6, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '283782', 50, '2023-04-10 10:32:54'),
-(7, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '937432', 100, '2023-04-10 10:34:03');
+INSERT INTO `tblorderdetail` (`od_id`, `u_id`, `od_name`, `od_email`, `od_address`, `od_city`, `od_state`, `od_pin`, `od_total`, `od_pay`, `od_date`) VALUES
+(1, 25, 'null', 'null', 'null', 'null', 'null', 'null', 100, '', '2023-04-10 09:53:09'),
+(2, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '386247', 100, '', '2023-04-10 10:05:26'),
+(3, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '374889', 400, '', '2023-04-10 10:26:42'),
+(4, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '836482', 150, '', '2023-04-10 10:28:08'),
+(5, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '297492', 150, '', '2023-04-10 10:30:44'),
+(6, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '283782', 50, '', '2023-04-10 10:32:54'),
+(7, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '937432', 100, '', '2023-04-10 10:34:03'),
+(8, 25, 'Deep', '20bmiit106@gmail.com', 'rander', 'surat', 'gujarat', '089382', 72, '', '2023-04-11 08:57:48'),
+(9, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '864862', 1000, 'pay_LcKy4D9JmiMdUd', '2023-04-11 09:03:18');
 
 -- --------------------------------------------------------
 
@@ -140,7 +144,7 @@ CREATE TABLE `tblproduct` (
 --
 
 INSERT INTO `tblproduct` (`p_id`, `p_name`, `category`, `p_image`, `p_price`, `p_status`, `date`) VALUES
-(1, 'Pav Bhaji Bread', 1, 'bakery7.jpg', 50, 'instock', '2023-03-25 02:06:46'),
+(1, 'Pav Bhaji Bread', 1, 'pavbhajibread.jpeg', 36, 'instock', '2023-04-11 09:42:53'),
 (2, 'Dabeli Bread', 1, 'dabeli-pav.jpg', 36, 'instock', '2022-09-16 00:00:00'),
 (3, 'Burger Buns', 1, 'burgerbun.jpg', 40, 'instock', '2022-09-16 00:00:00'),
 (4, 'Cadbury Silk', 3, 'dmsilk.jpeg', 80, 'instock', '2022-10-15 14:27:44'),
@@ -167,8 +171,8 @@ CREATE TABLE `tblstock` (
 
 INSERT INTO `tblstock` (`st_id`, `p_id`, `avl_stock`, `date`) VALUES
 (1, 1, 38, '2023-03-20 09:54:55'),
-(11, 2, 5, '2023-03-25 01:26:41'),
-(12, 6, 100, '2023-03-20 09:55:35'),
+(11, 2, 3, '2023-03-25 01:26:41'),
+(12, 6, 90, '2023-03-20 09:55:35'),
 (13, 3, 6, '2023-03-21 11:34:58'),
 (24, 4, 100, '2023-03-25 02:03:09');
 
@@ -209,9 +213,8 @@ INSERT INTO `tbluser` (`id`, `name`, `email`, `password`, `contact`, `user`, `st
 (15, 'noob', 'noob1@gmail.com', 'confirmke', 8736659808, 'customer', 'inactive', '0000-00-00 00:00:00'),
 (16, 'Preet', 'Preet@gm.co', 'Preet@008', 9624430118, 'customer', 'active', '0000-00-00 00:00:00'),
 (18, 'Jigna Solanki', 'jigna.solanki@utu.ac.in', 'kibhit@13', 9876543210, 'customer', 'inactive', '0000-00-00 00:00:00'),
-(25, 'Deep', '20bmiit106@gmail.com', 'dd4936bf8f4c399b2bd95c07486172b5', 9823782987, 'customer', 'active', '2023-03-25 01:21:15'),
-(26, 'Preet', '20bmiit036@gmail.com', '995e133d444590be582547c16a10174c', 9624430118, 'customer', 'active', '2023-03-25 01:27:33'),
-(27, 'Deep', 'deepdalal20@gmail.com', 'dd4936bf8f4c399b2bd95c07486172b5', 8475674890, 'admin', 'active', '2023-03-25 01:34:10');
+(25, 'Deep', '20bmiit106@gmail.com', 'dd4936bf8f4c399b2bd95c07486172b5', 9823782987, 'admin', 'active', '2023-03-25 01:21:15'),
+(26, 'Preet', '20bmiit036@gmail.com', '995e133d444590be582547c16a10174c', 9624430118, 'customer', 'active', '2023-03-25 01:27:33');
 
 -- --------------------------------------------------------
 
@@ -299,7 +302,7 @@ ALTER TABLE `tblwishlist`
 -- AUTO_INCREMENT for table `tblcart`
 --
 ALTER TABLE `tblcart`
-  MODIFY `crt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `crt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `tblcategory`
@@ -311,13 +314,13 @@ ALTER TABLE `tblcategory`
 -- AUTO_INCREMENT for table `tblord`
 --
 ALTER TABLE `tblord`
-  MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `tblorderdetail`
 --
 ALTER TABLE `tblorderdetail`
-  MODIFY `od_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `od_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tblproduct`
