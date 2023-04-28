@@ -95,13 +95,13 @@ div {
 		{ 	
 			String up = "Update tblstock set avl_stock='"+qty+"', date='"+date+"' where p_id='"+pid+"'";
 			statement.executeUpdate(up);
-			response.sendRedirect("stock.jsp");
+			response.sendRedirect("edproduct.jsp");
 		}
 		else		
 		{
 			String up = "INSERT INTO `tblstock`(`p_id`, `avl_stock`, `date`) VALUES ('"+pid+"','"+qty+"', '"+date+"')";
 			statement.executeUpdate(up);
-			response.sendRedirect("stock.jsp");
+			response.sendRedirect("edproduct.jsp");
 		}
 	}
 	}

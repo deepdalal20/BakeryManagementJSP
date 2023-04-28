@@ -147,11 +147,9 @@ String ses = (String)session.getAttribute("asesid");
                 <a class="nav-link active" aria-current="page" href="#"> Category</a>
               </li>  
               <li class="nav-item">
-                <a class="nav-link" href="edproduct.jsp"> Update Products</a>
+                <a class="nav-link" href="edproduct.jsp">Products</a>
               </li>  
-              <li class="nav-item">
-                <a class="nav-link" href="stock.jsp"> Update Stock</a>
-              </li> 
+              
               <li class="nav-item">
                 <a class="nav-link" href="customer.jsp">Customer</a>
               </li>

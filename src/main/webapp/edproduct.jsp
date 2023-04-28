@@ -155,11 +155,9 @@ response.setDateHeader ("Expires", 0);
                 <a class="nav-link" href="category.jsp"> Category</a>
               </li>  
               <li class="nav-item">
-                <a class="nav-link active " aria-current="page" href="#"> Update Products</a>
+                <a class="nav-link active " aria-current="page" href="#">Products</a>
               </li>  
-              <li class="nav-item">
-                <a class="nav-link" href="stock.jsp"> Update Stock</a>
-              </li>
+              
               <li class="nav-item">
                 <a class="nav-link" href="customer.jsp">Customer</a>
               </li>
@@ -182,7 +180,8 @@ response.setDateHeader ("Expires", 0);
                 <col width="10%">
                 <col width="15%">
                 <col width="10%">
-                <col width="30%">
+                <col width="15%">
+                <col width="15%">
                 <col width="15%">
             </colgroup>
             <thead>
@@ -192,21 +191,26 @@ response.setDateHeader ("Expires", 0);
                     <th class="text-center p-0">Category</th>
                     <th class="text-center p-0">Product</th>
                     <th class="text-center p-0">Price</th>
+                    <th class="text-center p-0">Stock</th>
                     <th class="text-center p-0">Action</th>
                 </tr>
             </thead>
             <tbody>
             <%@ page import="java.sql.*, java.io.PrintWriter" %>
 			<%
+			Connection connection;
+			Statement statement;
+			ResultSet set;
 				try
 				{
 					Class.forName("com.mysql.cj.jdbc.Driver");
-					Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
-					Statement statement = connection.createStatement();
+					connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
+					statement = connection.createStatement();
 					String query = "select * from tblproduct";
-					ResultSet set = statement.executeQuery(query);
+					set = statement.executeQuery(query);
 					while(set.next())
 					{
+						String pid = set.getString("p_id");
 					%>
                 <tr>
                     <td class="py-0 px-1"><%out.print(set.getString("p_id")); %></td>
@@ -216,6 +220,23 @@ response.setDateHeader ("Expires", 0);
                         <div class="fs-6 fw-bold truncate-1"> <%out.print(set.getString("p_name")); %></div>
                     </td>
                     <td class="py-0 px-1 text-end"><%out.print(set.getString("p_price")); %></td>
+                    	<%
+                    		String stock = "select avl_stock from tblstock where p_id = '"+pid+"'";
+                    		Statement st = connection.createStatement();
+                    		ResultSet set2 = st.executeQuery(stock);
+                    		if(set2.next())
+                    		{
+                    	%>
+                    		<td class="py-0 px-1 text-end"><%out.print(set2.getString(1)); %></td>
+                    		<%	
+                    			} 
+								else
+								{
+									%>
+									<td class="py-0 px-1 text-end">N/A</td>
+									<%
+								}
+                    		%>
                     <td class="text-center py-0 px-1">
                         <div class="btn-group" role="group">
                             <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle btn-sm rounded-0 py-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -224,6 +245,7 @@ response.setDateHeader ("Expires", 0);
                             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                 <li><a class="dropdown-item edit_data" href="updatepro.jsp?id=<%out.print(set.getString("p_id")); %>">Edit</a></li>
                                 <li><a class="dropdown-item delete_data" href="deletepro.jsp?id=<%out.print(set.getString("p_id")); %>">Delete</a></li>
+                                <li><a class="dropdown-item delete_data" href="restock.jsp?pid=<%out.print(set.getString("p_id")); %>">Restock</a></li>
                             </ul>
                         </div>
                     </td>

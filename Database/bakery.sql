@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 11, 2023 at 06:13 AM
+-- Generation Time: Apr 28, 2023 at 02:29 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -36,6 +36,13 @@ CREATE TABLE `tblcart` (
   `crt_qty` int(11) NOT NULL,
   `crt_image` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tblcart`
+--
+
+INSERT INTO `tblcart` (`crt_id`, `p_id`, `u_id`, `crt_name`, `crt_price`, `crt_qty`, `crt_image`) VALUES
+(32, 1, 28, 'Pav Bhaji Bread', 36, 4, 'pavbhajibread.jpeg');
 
 -- --------------------------------------------------------
 
@@ -78,15 +85,12 @@ CREATE TABLE `tblord` (
 --
 
 INSERT INTO `tblord` (`ord_id`, `p_id`, `u_id`, `ord_name`, `ord_price`, `ord_qty`, `ord_image`) VALUES
-(17, 0, 25, 'Pav Bhaji Bread', 50, 2, 'bakery7.jpg'),
-(20, 1, 25, 'Pav Bhaji Bread', 50, 2, 'bakery7.jpg'),
-(22, 1, 25, 'Pav Bhaji Bread', 50, 8, 'bakery7.jpg'),
-(23, 1, 25, 'Pav Bhaji Bread', 50, 3, 'bakery7.jpg'),
-(24, 1, 25, 'Pav Bhaji Bread', 50, 3, 'bakery7.jpg'),
-(25, 1, 25, 'Pav Bhaji Bread', 50, 1, 'bakery7.jpg'),
 (26, 1, 25, 'Pav Bhaji Bread', 50, 2, 'bakery7.jpg'),
 (27, 2, 25, 'Dabeli Bread', 36, 2, 'dabeli-pav.jpg'),
-(28, 6, 25, 'MrBeastBar', 100, 10, 'mrbeast.jpeg');
+(28, 6, 25, 'MrBeastBar', 100, 10, 'mrbeast.jpeg'),
+(31, 1, 25, 'Pav Bhaji Bread', 36, 1, 'pavbhajibread.jpeg'),
+(33, 1, 25, 'Pav Bhaji Bread', 36, 3, 'pavbhajibread.jpeg'),
+(35, 6, 25, 'MrBeastBar', 100, 4, 'mrbeast.jpeg');
 
 -- --------------------------------------------------------
 
@@ -113,15 +117,9 @@ CREATE TABLE `tblorderdetail` (
 --
 
 INSERT INTO `tblorderdetail` (`od_id`, `u_id`, `od_name`, `od_email`, `od_address`, `od_city`, `od_state`, `od_pin`, `od_total`, `od_pay`, `od_date`) VALUES
-(1, 25, 'null', 'null', 'null', 'null', 'null', 'null', 100, '', '2023-04-10 09:53:09'),
-(2, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '386247', 100, '', '2023-04-10 10:05:26'),
-(3, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '374889', 400, '', '2023-04-10 10:26:42'),
-(4, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '836482', 150, '', '2023-04-10 10:28:08'),
-(5, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '297492', 150, '', '2023-04-10 10:30:44'),
-(6, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '283782', 50, '', '2023-04-10 10:32:54'),
-(7, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '937432', 100, '', '2023-04-10 10:34:03'),
-(8, 25, 'Deep', '20bmiit106@gmail.com', 'rander', 'surat', 'gujarat', '089382', 72, '', '2023-04-11 08:57:48'),
-(9, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '864862', 1000, 'pay_LcKy4D9JmiMdUd', '2023-04-11 09:03:18');
+(9, 25, 'Deep', '20bmiit106@gmail.com', 'adajan', 'surat', 'gujarat', '864862', 1000, 'pay_LcKy4D9JmiMdUd', '2023-04-11 09:03:18'),
+(10, 25, 'Deep', '20bmiit106@gmail.com', 'rander road, b/h navyug college', 'surat', 'gujarat', '395009', 36, 'pay_LcO1xEhAamQo75', '2023-04-11 12:03:02'),
+(11, 25, 'Deep', '20bmiit106@gmail.com', 'Adajan', 'Surat', 'Gujarat', '395009', 508, 'pay_LjBo8NXu57UEEm', '2023-04-28 04:38:39');
 
 -- --------------------------------------------------------
 
@@ -170,10 +168,10 @@ CREATE TABLE `tblstock` (
 --
 
 INSERT INTO `tblstock` (`st_id`, `p_id`, `avl_stock`, `date`) VALUES
-(1, 1, 38, '2023-03-20 09:54:55'),
+(1, 1, 100, '2023-04-28 05:00:14'),
 (11, 2, 3, '2023-03-25 01:26:41'),
-(12, 6, 90, '2023-03-20 09:55:35'),
-(13, 3, 6, '2023-03-21 11:34:58'),
+(12, 6, 86, '2023-03-20 09:55:35'),
+(13, 3, 10, '2023-04-22 01:09:44'),
 (24, 4, 100, '2023-03-25 02:03:09');
 
 -- --------------------------------------------------------
@@ -214,7 +212,9 @@ INSERT INTO `tbluser` (`id`, `name`, `email`, `password`, `contact`, `user`, `st
 (16, 'Preet', 'Preet@gm.co', 'Preet@008', 9624430118, 'customer', 'active', '0000-00-00 00:00:00'),
 (18, 'Jigna Solanki', 'jigna.solanki@utu.ac.in', 'kibhit@13', 9876543210, 'customer', 'inactive', '0000-00-00 00:00:00'),
 (25, 'Deep', '20bmiit106@gmail.com', 'dd4936bf8f4c399b2bd95c07486172b5', 9823782987, 'admin', 'active', '2023-03-25 01:21:15'),
-(26, 'Preet', '20bmiit036@gmail.com', '995e133d444590be582547c16a10174c', 9624430118, 'customer', 'active', '2023-03-25 01:27:33');
+(26, 'Preet', '20bmiit036@gmail.com', '995e133d444590be582547c16a10174c', 9624430118, 'customer', 'inactive', '2023-03-25 01:27:33'),
+(28, 'dharmaraj', 'mangroladharma11@gmail.com', '25d55ad283aa400af464c76d713c07ad', 1234567890, 'customer', 'active', '2023-04-11 01:35:59'),
+(29, 'dharma', '20bmiit078@gmail.com', '25d55ad283aa400af464c76d713c07ad', 1234567890, 'customer', 'active', '2023-04-11 01:43:04');
 
 -- --------------------------------------------------------
 
@@ -237,7 +237,9 @@ CREATE TABLE `tblwishlist` (
 
 INSERT INTO `tblwishlist` (`wl_id`, `u_id`, `wl_name`, `wl_price`, `wl_image`, `date`) VALUES
 (16, 26, 'Burger Buns', 40, 'burgerbun.jpg', '2023-03-25 02:10:55'),
-(17, 25, 'Pav Bhaji Bread', 50, 'bakery7.jpg', '2023-04-10 08:35:03');
+(20, 25, 'Royal Chocolate', 450, 'royalch.jpeg', '2023-04-28 04:33:27'),
+(21, 25, 'Amul Chocolate', 50, 'amuldc.jpeg', '2023-04-28 04:33:31'),
+(22, 25, 'Burger Buns', 40, 'burgerbun.jpg', '2023-04-28 04:33:38');
 
 --
 -- Indexes for dumped tables
@@ -302,7 +304,7 @@ ALTER TABLE `tblwishlist`
 -- AUTO_INCREMENT for table `tblcart`
 --
 ALTER TABLE `tblcart`
-  MODIFY `crt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `crt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `tblcategory`
@@ -314,13 +316,13 @@ ALTER TABLE `tblcategory`
 -- AUTO_INCREMENT for table `tblord`
 --
 ALTER TABLE `tblord`
-  MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `tblorderdetail`
 --
 ALTER TABLE `tblorderdetail`
-  MODIFY `od_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `od_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tblproduct`
@@ -338,13 +340,13 @@ ALTER TABLE `tblstock`
 -- AUTO_INCREMENT for table `tbluser`
 --
 ALTER TABLE `tbluser`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tblwishlist`
 --
 ALTER TABLE `tblwishlist`
-  MODIFY `wl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `wl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
