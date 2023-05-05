@@ -4,25 +4,6 @@
 <%@page import="java.io.*" %>
 <%@page import="java.sql.*" %>
 <%@page import="java.util.*" %>
-    <%
-    	Cookie[] c = request.getCookies();
-	    String errmsg = null;
-	    
-	    if(c != null)
-	    {
-	    	for(Cookie cookie : c)
-	    	{
-	    		if(cookie.getName().equals("errmsg"))
-	    		{
-	    			errmsg = cookie.getValue().toString();
-	    		}
-	    	}
-	    	if(errmsg!=null)
-		    {
-		    	out.println("<script>alert('" + errmsg + "')</script>");
-		    }
-	    }
-    %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +15,20 @@
     <title> Forgot Password</title>
 </head>
 <body>
+<%
+	Cookie[] cookies = request.getCookies();
+	String errmsg = "";
+	if (cookies != null) {
+	     for (Cookie cookie : cookies) {
+	       if(cookie.getName().equals("errcookie")) 
+	       {
+	         errmsg = cookie.getValue();
+	         System.out.print(errmsg);
+	         out.print("<center><div style='padding: 0px; background-color: orange; color: black; height: 25px; width: 100%; border-radius: 99px'>"+errmsg+"</div></center>");
+	       }
+	    }
+	}
+%>
     <center>
         <a href="index.jsp"> <img class="btn"  src="seewans.png" alt="" width="72" height="57"> </a>
         <h1 style="color: white;"> Seewans Bakery </h1>

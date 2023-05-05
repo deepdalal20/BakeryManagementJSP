@@ -1,6 +1,7 @@
 package BMS;
 import java.io.*;
 
+
 import java.sql.*;
 import java.io.PrintWriter;
 
@@ -60,8 +61,7 @@ public class ForgotPass extends HttpServlet {
 					}
 					else
 					{
-						
-						Cookie errcookie = new Cookie("errmsg","OTP_not_sent!!please_check_internet_connection");
+						Cookie errcookie = new Cookie("errcookie","OTP_not_sent!!please_check_internet_connection");
 						errcookie.setMaxAge(10);
 						res.addCookie(errcookie);
 						
@@ -71,7 +71,7 @@ public class ForgotPass extends HttpServlet {
 				}
 				else
 				{
-					Cookie errcookie = new Cookie("errmsg","This_email_id_dosen't_exist_in_our_database");
+					Cookie errcookie = new Cookie("errcookie","This_email_id_dosen't_exist_in_our_database");
 					errcookie.setMaxAge(10);
 					res.addCookie(errcookie);
 					
@@ -81,7 +81,7 @@ public class ForgotPass extends HttpServlet {
 			}
 			else
 			{
-				Cookie errcookie = new Cookie("errmsg","please_enter_email_in_the_field");
+				Cookie errcookie = new Cookie("errcookie","please_enter_email_in_the_field");
 				errcookie.setMaxAge(10);
 				res.addCookie(errcookie);
 				

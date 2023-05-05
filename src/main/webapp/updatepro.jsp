@@ -55,13 +55,18 @@ div {
 
 <h3>Update product</h3>
 <%
+	Connection connection = null;
+	Statement statement = null;
+	ResultSet set = null;
+%>
+<%
 	try
 	{
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
-		Statement statement = connection.createStatement();
+		connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
+		statement = connection.createStatement();
 		String query = "select * from tblproduct where p_id = '"+p_id+"'";
-		ResultSet set = statement.executeQuery(query);
+		set = statement.executeQuery(query);
 		if(set.next())
 		{
 			String pname = set.getString("p_name");
@@ -69,7 +74,7 @@ div {
 			String pcat = set.getString("category");
 			String status = set.getString("p_status");
 			String pprice = set.getString("p_price");
-			System.out.print(pname);
+
 		%>
 <div>
   <form action="" method="post">
@@ -81,7 +86,17 @@ div {
 
     <label for="country">Category id: </label>
     <select name="p_cat" id="country" class="box">
-         <option value="<%out.print(pcat);%>"><%out.print(pcat);%></option>
+    <%
+    	Statement st1 = connection.createStatement();
+    	String q1 = "select * from tblcategory";
+    	ResultSet set1 = st1.executeQuery(q1);
+    	while(set1.next())
+    	{
+    %>
+        <option value="<%out.print(set1.getString(1));%>"><%out.print(set1.getString(2));%></option>
+        <%
+    	}
+        %>
       </select><br>
 
     <label for="lname">Product Image: </label>
@@ -124,6 +139,19 @@ div {
 	catch(Exception e)
 	{
 		System.out.print(e);
+	}
+	finally
+	{
+		try
+		{
+			set.close();
+			statement.close();
+			connection.close();
+		}
+		catch(Exception ex)
+		{
+			System.out.print(ex);
+		}
 	}
 %>
 </body>

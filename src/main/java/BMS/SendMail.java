@@ -1,4 +1,4 @@
-	package BMS;
+package BMS;
 import java.util.Properties;
 
 import jakarta.mail.Authenticator;

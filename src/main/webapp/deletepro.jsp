@@ -14,18 +14,14 @@ String id = request.getParameter("id");
 <%@ page import="java.sql.*, java.io.PrintWriter" %>
 <%
 try
+{
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
+	Statement statement = connection.createStatement();
+	String q = "select * from tblstock where p_id ='"+id+"'";
+	ResultSet s = statement.executeQuery(q);
+	if(s.next())
 	{
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
-		Statement statement = connection.createStatement();
-		String query = "DELETE FROM tblproduct WHERE p_id='"+id+"'";
-		statement.executeUpdate(query);
-		response.sendRedirect("edproduct.jsp");
-	}
-	catch(Exception e)
-	{
-		System.out.print(e);
-	}
 %>
 <html>
 <head>
@@ -75,11 +71,6 @@ try
      </div>
       
       <%
-      try
-	  	{
-	  		Class.forName("com.mysql.cj.jdbc.Driver");
-	  		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/bakery","root","");
-	  		Statement statement = connection.createStatement();
 	      	String btn1 = request.getParameter("first");
 	      	String btn2 = request.getParameter("second");
 	      	
@@ -95,11 +86,18 @@ try
 	      	{
 	      		response.sendRedirect("edproduct.jsp");
 	      	}
-	  		}
-	      catch(Exception ex)
-	      {
-	    	  System.out.print(ex);
-	      }
+	}
+	else
+	{ 
+      String query = "DELETE FROM tblproduct WHERE p_id='"+id+"'";
+		statement.executeUpdate(query);
+		response.sendRedirect("edproduct.jsp");
+	}
+}
+	catch(Exception e)
+	{
+		System.out.print(e);
+	}
       %>
 </body>
 </html>

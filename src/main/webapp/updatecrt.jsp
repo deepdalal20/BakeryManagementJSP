@@ -10,12 +10,11 @@ String ses = (String)session.getAttribute("csesid");
 		response.sendRedirect("login.jsp");
 	}
 %>
-<%@ page import="java.sql.*, java.io.PrintWriter, java.time.LocalDateTime, java.time.format.DateTimeFormatter" %>
+<%@ page import="java.sql.*, java.io.PrintWriter, java.time.LocalDateTime, java.time.format.DateTimeFormatter, jakarta.servlet.http.Cookie" %>
 <%
 	String crid = request.getParameter("cart_id");
 	String qty = request.getParameter("cart_quantity");
 	String pid = request.getParameter("product_id");
-	System.out.print(pid);
 	try
 	{
 		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -31,7 +30,9 @@ String ses = (String)session.getAttribute("csesid");
 			int s = Integer.parseInt(st);
 			if(q > s)
 			{
-				out.print("<script>alert('Enough stock not available');</script>");
+				Cookie uperr = new Cookie("uperr","Enough_Quantity_not_available");
+				uperr.setMaxAge(10);
+				response.addCookie(uperr);
 				response.sendRedirect("cart.jsp");
 			}
 			else

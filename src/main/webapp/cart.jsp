@@ -33,6 +33,20 @@ String ses = (String)session.getAttribute("csesid");
     <title>Cart</title>
   </head>
   <body>
+<%
+	Cookie[] cookies = request.getCookies();
+	String errmsg1 = "";
+	if (cookies != null) {
+	     for (Cookie cookie : cookies) {
+	       if(cookie.getName().equals("uperr")) 
+	       {
+	         errmsg1 = cookie.getValue();
+	         System.out.print(errmsg1);
+	         out.print("<center><div style='padding: 0px; background-color: orange; color: black; height: 25px; width: 100%; border-radius: 99px'>"+errmsg1+"</div></center>");
+	       }
+	    }
+	}
+%>
  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a href="cust.jsp"> <img class="btn"  src="seewans.png" alt="" width="72" height="57"> </a>

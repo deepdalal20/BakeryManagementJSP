@@ -22,4 +22,12 @@
     <servlet-name>OrderCreation</servlet-name>
     <url-pattern>/OrderCreation</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>BMS.register1</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/register1</url-pattern>
+  </servlet-mapping>
 </web-app>
